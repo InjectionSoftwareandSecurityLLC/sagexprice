@@ -6,16 +6,12 @@
   <title>Sage X Price</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Cutive+Mono&family=Quicksand:wght@300..700&display=swap" rel="stylesheet"/>
   <style>
-
     @font-face {
         font-family: "Georgia";
         src: url(georgia.ttf) format("truetype");
     }
-
     body {
       background-color: #000;
       color: #f0f0f0;
@@ -30,10 +26,10 @@
 
     /* NAVBAR FIX: align brand left, hamburger right */
     .navbar .container-fluid {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
     .navbar-brand {
       font-size: clamp(1rem, 4vw, 1.5rem);
@@ -69,72 +65,47 @@
         display: none;
     }
 
+
+    .section {
+      padding: 8rem 1rem;
+      text-align: center;
+      background-color: rgba(10, 10, 10, 0.9);
+      min-height: 100vh;
+    }
+
     h2 {
       font-weight: 300;
-      text-shadow: 0 0 16px rgba(196, 196, 196, 0.2);
+      text-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
       margin-bottom: 2rem;
     }
 
-    .section {
-      padding: 5rem 1rem;
-      text-align: center;
+    .link-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      margin: 0.5rem auto;
       width: 100%;
+      max-width: 400px;
+      background: transparent;
+      border: 2px solid #f0f0f0;
+      color: #f0f0f0;
+      text-decoration: none;
+      font-size: 1.1rem;
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+      border-radius: 6px;
+      transition: all 0.2s ease-in-out;
     }
 
-    .section-dark {
-      background-color: rgba(15, 15, 15, 0.85);
-      padding-top: 8%;
+    .link-button i {
+      margin-right: 0.75rem;
     }
 
-    .section-darker {
-      background-color: rgba(75, 75, 75, 0.85);
-    }
-
-    .embed-container {
-      position: relative;
-      overflow: hidden;
-      max-width: 100%;
-      border-radius: 12px;
-      margin: 0 auto;
-      box-shadow: 0 0 20px rgba(196, 196, 196, 0.2);
-    }
-
-    .embed-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .music-preview {
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .music-preview img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-      box-shadow: 0 0 20px rgba(196, 196, 196, 0.2);
-    }
-
-    .music-preview a {
-        display: inline-block;
-        margin-top: 1rem;
-        padding: 0.6rem 1.2rem;
-        border: 1px solid #f0f0f0;
-        color: #f0f0f0;
-        text-decoration: none;
-        font-weight: 400;
-        text-shadow: 0 0 6px rgba(75, 75, 75, 0.85);
-        border-radius: 4px;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .music-preview a:hover {
-        color: #000;
-        background-color: #f0f0f0;
-        text-shadow: none;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    .link-button:hover {
+      background-color: #f0f0f0;
+      color: #000;
+      text-shadow: none;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
     /* Footer Social Icons */
@@ -158,9 +129,8 @@
       text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
     }
 
-    /* Only apply vertical nav on mobile */
     @media (max-width: 768px) {
-      .navbar-toggler-nt {
+        .navbar-toggler-nt {
         display: inline-block;
         padding: var(--bs-navbar-toggler-padding-y) var(--bs-navbar-toggler-padding-x);
         font-size: var(--bs-navbar-toggler-font-size);
@@ -190,19 +160,20 @@
         padding-top: 15%;
       }
     }
+
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-light navbar-expand-lg fixed-top">
+  <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#"><img class="img-fluid navbar-logo" src="Sage_Logo_Short_White.png"/></a>
-      <button class="navbar-toggler-nt navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon navbar-light"></span>
-      </button>
+        <a class="navbar-brand" href="#"><img class="img-fluid navbar-logo" src="Sage_Logo_Short_White.png"/></a>
+        <button class="navbar-toggler-nt navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon navbar-light"></span>
+        </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav custom-nav ms-auto">
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link" href="index.html#music">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="music.html">Music</a>
@@ -212,33 +183,38 @@
     </div>
   </nav>
 
-  <!-- Music Preview Section -->
-  <section id="music" class="section section-dark">
+  <section class="section">
     <div class="container">
-      <h2>Latest Song</h2>
-      <div class="music-preview">
-        <img src="hl_album_art.png" alt="Harborlawn Album Art" class="img-fluid"/>
-        <a href="https://foundation-media.ffm.to/harborlawn" target="_blank">Listen Now</a>
-        <br/>
-        <a href="music.html" target="_blank">More Music by Sage X Price</a>
-      </div>
+      <h2>Find Me On</h2>
+
+      <a class="link-button" href="https://music.apple.com/us/artist/sage-x-price/1706430792" target="_blank">
+        <i class="fab fa-apple"></i> Apple Music
+      </a>
+      <br/>
+      <a class="link-button" href="https://open.spotify.com/artist/7HFWAHYOe2o2diWwiWX5Db?si=ia_TrZLFQPOgvXYtuU77mg" target="_blank">
+        <i class="fab fa-spotify"></i> Spotify
+      </a>
+      <br/>
+      <a class="link-button" href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target="_blank">
+        <i class="fab fa-youtube"></i> YouTube
+      </a>
+      <br/>
+      <a class="link-button" href="https://on.soundcloud.com/XdgpjZbAkqfkoiHSA" target="_blank">
+        <i class="fab fa-soundcloud"></i> SoundCloud
+      </a>
+      <br/>
+      <a class="link-button" href="https://music.amazon.com/artists/B0CHN6M12Q/sage-x-price?marketplaceId=ATVPDKIKX0DER&musicTerritory=US&ref=dm_sh_Jkg9OCYX781ZMlivFbJLIS0c1" target="_blank">
+        <i class="fab fa-amazon"></i> Amazon Music
+      </a>
+      <br/>
+      <a class="link-button" href="https://tidal.com/browse/artist/41975846" target="_blank">
+        <i class="fas fa-music"></i> Tidal
+      </a>
+
     </div>
   </section>
 
-  <!-- Video Presentation Section -->
-  <section id="videos" class="section section-darker">
-    <div class="container">
-      <h2>Latest Video</h2>
-      <div class="embed-container" style="aspect-ratio: 16 / 9;">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/Rwd41HkOAd0?si=Zzk4BfmjCqDc346e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-      </div>
-      <div class="music-preview">
-        <a href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target="_blank">Watch More</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer with Social Media Links -->
+    <!-- Footer with Social Media Links -->
   <footer>
     <div class="container social-icons">
       <a href="https://www.instagram.com/sagexprice/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
