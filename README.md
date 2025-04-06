@@ -1,2 +1,2 @@
 # sagexprice
-Sage X Price (Demo Site)
+Sage X Price Website
