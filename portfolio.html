@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Music | Sage X Price</title>
+  <title>Portfolio | Sage X Price</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Cutive+Mono&family=Quicksand:wght@300..700&display=swap" rel="stylesheet"/>
   <style>
     @font-face {
-        font-family: "Georgia";
-        src: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/fonts/georgia.ttf') format("truetype");
+      font-family: "Georgia";
+      src: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/fonts/georgia.ttf') format("truetype");
     }
+
     body {
       background-color: #000;
       color: #f0f0f0;
@@ -172,54 +175,31 @@
     /* hide mobile socials on desktop */
     .mobile-social-icons { display:none; }
 
-
-    .section {
-      padding: 8rem 1rem;
+    .section-dark {
+      background-color: rgba(15, 15, 15, 0.85);
+      padding: 8% 1rem 4rem 1rem;
       text-align: center;
-      background-color: rgba(10, 10, 10, 0.9);
-      min-height: 100vh;
     }
 
     h2 {
       font-weight: 300;
-      text-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
+      text-shadow: 0 0 16px rgba(196, 196, 196, 0.2);
       margin-bottom: 2rem;
     }
 
-    .dice-links {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem 2rem;
-      max-width: 600px;
-      margin: 2rem auto;
-      justify-content: center;
+    .about-text {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #ccc;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: left;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
     }
 
-    .link-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1rem;
-      border: 1px solid #f0f0f0;
-      border-radius: 100px;
-      background-color: rgba(255, 255, 255, 0.05);
-      color: #f0f0f0;
-      text-decoration: none;
-      font-weight: 400;
-      font-size: 0.95rem;
-      text-shadow: 0 0 6px rgba(75, 75, 75, 0.85);
-      transition: all 0.25s ease-in-out;
-    }
-
-
-    .link-button:hover {
-      background-color: #f0f0f0;
-      color: #000;
-      text-shadow: none;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    }
-
-    /* Footer Social Icons */
     footer {
       background-color: rgba(0, 0, 0, 0.6);
       padding: 2rem 0;
@@ -309,12 +289,7 @@
         background-color: rgba(15, 15, 15, 0.85);
         padding-top: 35%;
       }
-
-      .section {
-        padding-top: 35%;
-      }
     }
-
   </style>
 </head>
 <body>
@@ -350,34 +325,19 @@
     </div>
   </nav>
 
-  <section class="section">
+  <!-- About Content Section -->
+  <section class="section-dark">
     <div class="container">
-      <h2>Find Me On</h2>
-      <div class="dice-links">
-        <a class="link-button" href="https://music.apple.com/us/artist/sage-x-price/1706430792" target="_blank">
-          <i class="fab fa-apple fa-2xl"></i>
-        </a>
-        <a class="link-button" href="https://open.spotify.com/artist/7HFWAHYOe2o2diWwiWX5Db?si=ia_TrZLFQPOgvXYtuU77mg" target="_blank">
-          <i class="fab fa-spotify fa-2xl"></i>
-        </a>
-        <a class="link-button" href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target="_blank">
-          <i class="fab fa-youtube fa-2xl"></i>
-        </a>
-        <a class="link-button" href="https://on.soundcloud.com/XdgpjZbAkqfkoiHSA" target="_blank">
-          <i class="fab fa-soundcloud fa-2xl"></i>
-        </a>
-        <a class="link-button" href="https://music.amazon.com/artists/B0CHN6M12Q/sage-x-price?marketplaceId=ATVPDKIKX0DER&musicTerritory=US&ref=dm_sh_Jkg9OCYX781ZMlivFbJLIS0c1" target="_blank">
-          <i class="fab fa-amazon fa-2xl"></i>
-        </a>
-        <a class="link-button" href="https://tidal.com/browse/artist/41975846" target="_blank">
-          <i class="fas fa-music fa-2xl"></i>
-        </a>
-      </div>
-
+      <h2>About Sage X Price</h2>
+      <div class="about-text">
+        <p>I wanna make music for those who feel the way I do. People who feel lost, people who need something to relate to. I wanna be able to really talk about who I am because I find it really hard in normal conversation to find the words or the motivation to really get down into who I am and my stories and my flaws, but with music it comes off very natural.”</p>
+        <p style="text-align: center;">- Sage X Price</p>
+        <p>In a musical landscape where artists can seem like barely distinguishable carbon copies, sometimes you come across a true artist with a creative versatility and a raw self-awareness and vulnerability that stands out from the crowd and speaks to your soul. That artist is SoCal native Sage X Price. Music is in Sage’s DNA. Growing up in a family of artists, Sage started his musical journey playing guitar and digging for vinyl in his youth. As his talent for lyricism grew, beat production soon followed. With a versatile style rooted in sample-based hip hop, Sage describes his process of beat making similar to those of J. Dilla and Q-Tip of A Tribe Called Quest during the late 80’s/early 90’s.</p>
+        <p>After experiencing struggles with his mental health at the age of 15, Sage utilized his writing as a way to manage those heavy emotional states and at the age of 16, Sage made the choice to break away from the comfort of his home in order to pursue his music career. So while you may not know who Sage X Price is now, we can promise that at some point...you will.</p>
     </div>
   </section>
 
-    <!-- Footer with Social Media Links -->
+  <!-- Footer -->
   <footer>
     <div class="container social-icons">
       <a href="https://www.instagram.com/sagexprice/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -386,7 +346,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
   <script>
     const collapseEl = document.getElementById('navbarNav');
     const toggleBtn  = document.getElementById('navToggleBtn');
@@ -401,6 +360,7 @@
       navbar.style.transform = st > lastScrollTop ? 'translateY(-100%)' : 'translateY(0)';
       lastScrollTop = st <= 0 ? 0 : st;
     });
+
 
   </script>
 </body>
