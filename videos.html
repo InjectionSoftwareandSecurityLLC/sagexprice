@@ -241,6 +241,52 @@
 
       .section-dark { padding-top: 35%; }
     }
+
+        /* 1) Ensure the #videos section can stretch if needed */
+    #videos {
+      position: relative;
+    }
+
+    /* 2) Make the loader container fill at least the viewport height */
+    /*    and center its contents */
+    #video-loader {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      /* At least half the viewport, adjust as needed */
+      min-height: 50vh;
+    }
+
+    #video-loader .spinner-grow {
+      /* responsive sizing */
+      width: clamp(4rem, 15vw, 25rem);
+      height: clamp(4rem, 15vw, 25rem);
+
+      /* semi‑opaque fill */
+      background-color: rgba(255, 255, 255, 0.85);
+      opacity: 0.9;
+
+      /* two animations: 
+        1) the built‑in grow/pulse, 
+        2) your custom glow pulse */
+      animation: 
+        spinner-grow 0.75s linear infinite,
+        spinnerGlow 1s ease-in-out infinite alternate;
+    }
+
+    /* your glow keyframes from before */
+    @keyframes spinnerGlow {
+      0% {
+        filter:
+          drop-shadow(0 0 0.5rem rgba(255,255,255,0.5))
+          drop-shadow(0 0 1rem   rgba(255,255,255,0.3));
+      }
+      100% {
+        filter:
+          drop-shadow(0 0 1.5rem rgba(255,255,255,1))
+          drop-shadow(0 0 3rem   rgba(255,255,255,0.7));
+      }
+    }
   </style>
 </head>
 <body>
@@ -282,7 +328,7 @@
     <div class="container">
       <h2>Latest Video</h2>
       <div id="video-loader" class="text-center py-5">
-        <div class="spinner-grow text-light" role="status" style="width: 3rem; height: 3rem;">
+        <div class="spinner-grow text-light" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>
