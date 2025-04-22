@@ -142,30 +142,31 @@
     h2 { font-weight:300; text-shadow:0 0 16px rgba(196,196,196,0.2); margin-bottom:2rem; }
     .section { padding:5rem 1rem; text-align:center; width:100%; }
     .section-dark { background-color:rgba(15,15,15,0.85); padding-top:8%; }
-    .section-darker { background-color:#000; }
 
     .embed-container {
-      position:relative; overflow:hidden; max-width:100%;
-      border-radius:12px; margin:0 auto;
-      box-shadow:0 0 20px rgba(196,196,196,0.2);
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 aspect ratio */
     }
-    .embed-container iframe { width:100%; height:100%; border:none; }
+    .embed-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
 
-    .music-preview { max-width:500px; margin:0 auto; }
-    .music-preview img {
-      width:100%; border-radius:10px; margin-bottom:1rem;
-      box-shadow:0 0 20px rgba(196,196,196,0.2);
+    .playlist-thumb {
+      cursor: pointer;
+      transition: transform 0.2s;
     }
-    .music-preview a {
-      display:inline-block; margin-top:1rem;
-      padding:0.6rem 1.2rem; border:1px solid #f0f0f0;
-      color:#f0f0f0; text-decoration:none; font-weight:400;
-      text-shadow:0 0 6px rgba(75,75,75,0.85);
-      border-radius:4px; transition:all 0.2s ease-in-out;
+    .playlist-thumb:hover {
+      transform: scale(1.05);
     }
-    .music-preview a:hover {
-      color:#000; background-color:#f0f0f0;
-      text-shadow:none; box-shadow:0 0 10px rgba(255,255,255,0.4);
+
+    .playlist-thumb.active {
+      outline: 3px solid #f0f0f0;
+      box-shadow: 0 0 12px #fff;
+      transform: scale(1.05);
     }
 
     footer {
@@ -220,7 +221,6 @@
       .navbar-expand-md .navbar-collapse.show {
         display: block !important;     
       }
-
       .navbar-nav .nav-item { width: 100%; }
       .navbar-nav .nav-link {
         display: block; width: 100%; padding: 0.75rem 0;
@@ -244,10 +244,6 @@
   </style>
 </head>
 <body>
-  <div id="overlay">
-    <div class="overlay-bg"></div>
-    <img class="overlay-image" src="https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/img/Sage_Logo_Long.png" alt="Intro Logo"/>
-  </div>
 
   <nav class="navbar navbar-light navbar-expand-md fixed-top">
     <div class="container-fluid">
@@ -262,6 +258,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav custom-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="latest-release.html">Latest</a></li>
           <li class="nav-item"><a class="nav-link" href="music.html">Music</a></li>
           <li class="nav-item"><a class="nav-link" href="https://sagexprice.shop">Shop</a></li>
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
@@ -281,28 +278,18 @@
     </div>
   </nav>
 
-  <!-- Music Preview Section -->
-  <section id="music" class="section section-dark">
-    <div class="container">
-      <h2>Latest Song</h2>
-      <div class="music-preview">
-        <img src="https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/img/hl_album_art.png" alt="Harborlawn Album Art" class="img-fluid"/>
-        <a href="https://foundation-media.ffm.to/harborlawn" target="_blank">Listen Now</a><br/>
-        <a href="music.html">More Music by Sage X Price</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Video Presentation Section -->
   <section id="videos" class="section section-darker">
     <div class="container">
       <h2>Latest Video</h2>
-      <div class="embed-container" style="aspect-ratio:16/9;">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/Rwd41HkOAd0?si=Zzk4BfmjCqDc346e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div id="video-loader" class="text-center py-5">
+        <div class="spinner-grow text-light" role="status" style="width: 3rem; height: 3rem;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
       </div>
-      <div class="music-preview">
-        <a href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target="_blank">Watch More</a>
+      <div class="embed-container mb-4" style="aspect-ratio:16/9;">
+        <iframe id="main-video" src="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
+      <div class="row" id="video-playlist"></div>
     </div>
   </section>
 
@@ -333,6 +320,75 @@
     window.addEventListener("load", () => {
       setTimeout(() => document.getElementById("overlay")?.remove(), 4500);
     });
+
+    const channelId = 'UCFjMDuV2peRouWDbxNkD94A';
+    const apiKey = 'AIzaSyD97_O89-D8OkqrG66ogYcLHdP0okZQZ7E'; // Replace with your YouTube Data API key
+
+    async function fetchVideos() {
+      const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=50`);
+      const searchData = await searchResponse.json();
+
+      const videoItems = searchData.items.filter(item => item.id.kind === 'youtube#video');
+      const videoIds = videoItems.map(item => item.id.videoId).join(',');
+
+      const detailsResponse = await fetch(`https://www.googleapis.com/youtube/v3/videos?key=${apiKey}&id=${videoIds}&part=contentDetails`);
+      const detailsData = await detailsResponse.json();
+
+      const durationMap = {};
+      detailsData.items.forEach(item => {
+        const match = item.contentDetails.duration.match(/PT(?:(\d+)M)?(?:(\d+)S)?/);
+        const minutes = parseInt(match[1]) || 0;
+        const seconds = parseInt(match[2]) || 0;
+        const totalSeconds = (minutes * 60) + seconds;
+        durationMap[item.id] = totalSeconds;
+      });
+
+      return videoItems.filter(item => durationMap[item.id.videoId] >= 60);
+    }
+
+    function createPlaylistItem(video) {
+    const col = document.createElement('div');
+    col.className = 'col-6 col-md-3 mb-4';
+
+    const thumb = document.createElement('img');
+    thumb.src = video.snippet.thumbnails.medium.url;
+    thumb.alt = video.snippet.title;
+    thumb.className = 'img-fluid rounded playlist-thumb';
+    thumb.dataset.videoId = video.id.videoId;
+
+  thumb.addEventListener('click', () => {
+        // Update main video
+        document.getElementById('main-video').src = `https://www.youtube.com/embed/${video.id.videoId}`;
+
+        // Remove active class from all thumbs
+        document.querySelectorAll('.playlist-thumb').forEach(t => t.classList.remove('active'));
+
+        // Set active on clicked thumb
+        thumb.classList.add('active');
+      });
+
+      col.appendChild(thumb);
+      return col;
+    }
+
+    async function init() {
+      const loader = document.getElementById('video-loader');
+      try {
+        const videos = await fetchVideos();
+        if (videos.length > 0) {
+          document.getElementById('main-video').src = `https://www.youtube.com/embed/${videos[0].id.videoId}`;
+          const playlist = document.getElementById('video-playlist');
+          videos.forEach(video => {
+            playlist.appendChild(createPlaylistItem(video));
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      } finally {
+        loader?.remove(); // Remove loader whether it succeeds or fails
+      }
+    }
+    init();
   </script>
 </body>
 </html>
