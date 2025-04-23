@@ -15,3 +15,17 @@ const collapseEl = document.getElementById('navbarNav');
     window.addEventListener("load", () => {
       setTimeout(() => document.getElementById("overlay")?.remove(), 4500);
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Grab just the filename (e.g. beats-and-engineering.html), or "/" → "index.html"
+      let path = window.location.pathname.split('/').pop();
+      if (!path) path = 'index.html';
+
+      document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+        const href = link.getAttribute('href');
+        // If it matches our path, mark it active
+        if (href === path) {
+          link.classList.add('active');
+        }
+      });
+    });

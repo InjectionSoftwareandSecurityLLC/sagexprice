@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Beats & Engineering | Sage X Price</title>
+  <title>Beats &amp; Engineering | Sage X Price</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -87,7 +87,6 @@
     }
 
     .navbar {
-      border-top:1px solid rgba(255,255,255,0.6);
       border-bottom:1px solid rgba(255,255,255,0.6);
       border-radius:1px;
       transition:transform 0.3s ease-in-out;
@@ -115,14 +114,12 @@
       width: 100% !important;    
     }
 
-
     .navbar-nav {
       display: flex;
       flex-wrap: nowrap;       
       width: auto;                  
       margin: 0;                      
     }
-
 
     .navbar-nav .nav-link {
       white-space: nowrap;
@@ -177,14 +174,20 @@
 
     .section-dark {
       background-color: rgba(15, 15, 15, 0.85);
-      padding: 8% 1rem 4rem 1rem;
+      padding: 8% 1rem 4rem;
       text-align: center;
     }
+
+    .section {
+      padding: 8% 1rem 4rem;
+      text-align: center;
+    }
+
 
     h2 {
       font-weight: 300;
       text-shadow: 0 0 16px rgba(196, 196, 196, 0.2);
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
 
     .about-text {
@@ -201,7 +204,7 @@
     }
 
     footer {
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: #1c1c1c;
       padding: 2rem 0;
       text-align: center;
     }
@@ -221,7 +224,7 @@
     }
 
     @media (max-width: 768px) {
-      .navbar{
+      .navbar {
         background-color: black;
       }
       .navbar .container-fluid {
@@ -273,26 +276,99 @@
         padding: 1rem 0;
       }
 
-      .mobile-social-icons a{
+      .mobile-social-icons a {
         color: white;
       }
 
       .overlay-image {
-        position: relative;
-        z-index: 2;
-        width: 50%;
-        opacity: 0;
-        animation: fadeInOutImg 2.5s ease-in-out forwards;
+        width: 50%; /* slightly larger on mobile */
       }
 
       .section-dark {
-        background-color: rgba(15, 15, 15, 0.85);
         padding-top: 35%;
       }
     }
+
+    /* beats & engineering section styles */
+    .beats-image-container {
+      position: relative;
+      display: inline-block;
+      margin: 1.5rem auto 2rem;
+    }
+    .beats-image-container img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+    }
+    .beats-image-container .beats-overlay {
+      position: absolute;
+      top: 80%; left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 0.75rem 1.25rem;
+      border-radius: 4px;
+    }
+    .beats-image-container .beats-overlay a {
+      color: #f0f0f0;
+      text-decoration: none;
+      font-weight: 500;
+      text-shadow: 0 0 8px rgba(255,255,255,0.3);
+    }
+
+    .embed-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+      margin-top: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+    }
+    .embed-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+
+    .about-text {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #ccc;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    }
+
+    .email-footer{
+      margin-top: 1%;
+    }
+
+    .navbar-nav .nav-link.active {
+      color: #fff !important;
+      animation: navGlow 1.5s ease-in-out infinite alternate;
+      text-shadow:
+        0 0 8px rgba(255,255,255,0.8),
+        0 0 16px rgba(255,255,255,0.6);
+    }
+    @keyframes navGlow {
+      from {
+        text-shadow: 0 0 8px rgba(255,255,255,0.8), 0 0 16px rgba(255,255,255,0.6);
+      }
+      to {
+        text-shadow: 0 0 16px rgba(255,255,255,1), 0 0 24px rgba(255,255,255,0.8);
+      }
+}
   </style>
 </head>
 <body>
+
   <nav class="navbar navbar-light navbar-expand-md fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
@@ -308,15 +384,14 @@
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="music.html">Music</a></li>
           <li class="nav-item"><a class="nav-link" href="https://sagexprice.shop">Shop</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-          <li class="nav-item"><a class="nav-link" href="beats-and-engineering.html">Engineering</a></li>
           <li class="nav-item"><a class="nav-link" href="videos.html">Watch Now</a></li>
+          <li class="nav-item"><a class="nav-link" href="beats-and-engineering.html">Beats / Mixes</a></li>          
           <li class="nav-item"><a class="nav-link" href="epk.html">EPK</a></li>
         </ul>
         <div class="mobile-social-icons">
           <a href="https://www.instagram.com/sagexprice/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target
+="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           <a href="https://www.tiktok.com/@sagexprice" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
           <a href="#" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
           <a href="#" target="_blank" aria-label="Apple Music"><i class="fab fa-apple"></i></a>
@@ -325,43 +400,50 @@
     </div>
   </nav>
 
-  <!-- About Content Section -->
+  <!-- Beats & Engineering Content Section -->
   <section class="section-dark">
-    <div class="container">
-      <h2>About Sage X Price</h2>
-      <div class="about-text">
-        <p>I wanna make music for those who feel the way I do. People who feel lost, people who need something to relate to. I wanna be able to really talk about who I am because I find it really hard in normal conversation to find the words or the motivation to really get down into who I am and my stories and my flaws, but with music it comes off very natural.”</p>
-        <p style="text-align: center;">- Sage X Price</p>
-        <p>In a musical landscape where artists can seem like barely distinguishable carbon copies, sometimes you come across a true artist with a creative versatility and a raw self-awareness and vulnerability that stands out from the crowd and speaks to your soul. That artist is SoCal native Sage X Price. Music is in Sage’s DNA. Growing up in a family of artists, Sage started his musical journey playing guitar and digging for vinyl in his youth. As his talent for lyricism grew, beat production soon followed. With a versatile style rooted in sample-based hip hop, Sage describes his process of beat making similar to those of J. Dilla and Q-Tip of A Tribe Called Quest during the late 80’s/early 90’s.</p>
-        <p>After experiencing struggles with his mental health at the age of 15, Sage utilized his writing as a way to manage those heavy emotional states and at the age of 16, Sage made the choice to break away from the comfort of his home in order to pursue his music career. So while you may not know who Sage X Price is now, we can promise that at some point...you will.</p>
+    <div class="container about-text">
+      <!-- Beats -->
+      <h2>BEATS</h2>
+      <p>200$ &ndash; exclusive with stems</p>
+      <div class="beats-image-container">
+        <img src="https://files.offtop.com/69e50876ed2ca786916d55e11b74dfb9_thumbnail.png" alt="Beats preview"/>
+        <div class="beats-overlay">
+          <a href="https://offtop.com/pack/Ng7WaxtQxj" target="_blank">Click Here</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container about-text">
+      <!-- Engineering -->
+      <h2>ENGINEERING</h2>
+
+
+      <p>200$ &ndash; mix and master <br>
+         (comes with main, clean, acapella, show &amp; instrumental masters)</p>
     </div>
   </section>
 
-  <!-- Footer -->
+      <!-- Spotify Embed -->
+      <div class="container">
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6ip9AyDlZMfner2QKIutiI?si=9aG_JxYbQcaoIqrf82Y16Q?utm_source=generator&theme=0" width="100%" height="550" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+    </div>
+
+
   <footer>
     <div class="container social-icons">
       <a href="https://www.instagram.com/sagexprice/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
       <a href="https://www.tiktok.com/@sagexprice" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
     </div>
+    <div class="container email-footer">
+      <p>Inquiries &amp; Bookings:</p>
+      <p><u>sagepricemgmt@gmail.com</u></p>
+    </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const collapseEl = document.getElementById('navbarNav');
-    const toggleBtn  = document.getElementById('navToggleBtn');
-
-    collapseEl.addEventListener('shown.bs.collapse', () => toggleBtn.classList.add('open'));
-    collapseEl.addEventListener('hidden.bs.collapse', () => toggleBtn.classList.remove('open'));
-
-    let lastScrollTop = 0;
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-      const st = window.scrollY || document.documentElement.scrollTop;
-      navbar.style.transform = st > lastScrollTop ? 'translateY(-100%)' : 'translateY(0)';
-      lastScrollTop = st <= 0 ? 0 : st;
-    });
-
-
-  </script>
+  <script src="js/sage.js"></script>
 </body>
 </html>

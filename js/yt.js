@@ -1,46 +1,50 @@
-const channelId = 'UCFjMDuV2peRouWDbxNkD94A';
-const apiKey = 'AIzaSyD97_O89-D8OkqrG66ogYcLHdP0okZQZ7E'; // Replace with your YouTube Data API key
+const apiKey     = 'AIzaSyD97_O89-D8OkqrG66ogYcLHdP0okZQZ7E';
+const playlistId = 'PLomcT89a70M5gF1ZvZbcKUgcW1cwdCnGa';
 
 async function fetchVideos() {
-  const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=50`);
-  const searchData = await searchResponse.json();
+  // 1) Grab up to 50 items from the playlist
+  const resp = await fetch(
+    `https://www.googleapis.com/youtube/v3/playlistItems`
+    + `?part=snippet`
+    + `&maxResults=50`
+    + `&playlistId=${playlistId}`
+    + `&key=${apiKey}`
+  );
+  const data = await resp.json();
 
-  const videoItems = searchData.items.filter(item => item.id.kind === 'youtube#video');
-  const videoIds = videoItems.map(item => item.id.videoId).join(',');
+  // 2) Map into the shape your UI expects **and** pull out the publish date
+  const videos = data.items.map(item => ({
+    id: { videoId: item.snippet.resourceId.videoId },
+    snippet: {
+      title:       item.snippet.title,
+      thumbnails:  item.snippet.thumbnails,
+      publishedAt: item.snippet.publishedAt    // <— when it was added to the playlist
+    }
+  }));
 
-  const detailsResponse = await fetch(`https://www.googleapis.com/youtube/v3/videos?key=${apiKey}&id=${videoIds}&part=contentDetails`);
-  const detailsData = await detailsResponse.json();
+  // 3) Sort descending by that date
+  videos.sort((a, b) => 
+    new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt)
+  );
 
-  const durationMap = {};
-  detailsData.items.forEach(item => {
-    const match = item.contentDetails.duration.match(/PT(?:(\d+)M)?(?:(\d+)S)?/);
-    const minutes = parseInt(match[1]) || 0;
-    const seconds = parseInt(match[2]) || 0;
-    const totalSeconds = (minutes * 60) + seconds;
-    durationMap[item.id] = totalSeconds;
-  });
-
-  return videoItems.filter(item => durationMap[item.id.videoId] >= 60);
+  return videos;
 }
 
 function createPlaylistItem(video) {
-const col = document.createElement('div');
-col.className = 'col-6 col-md-3 mb-4';
+  const col = document.createElement('div');
+  col.className = 'col-6 col-md-3 mb-4';
 
-const thumb = document.createElement('img');
-thumb.src = video.snippet.thumbnails.medium.url;
-thumb.alt = video.snippet.title;
-thumb.className = 'img-fluid rounded playlist-thumb';
-thumb.dataset.videoId = video.id.videoId;
+  const thumb = document.createElement('img');
+  thumb.src = video.snippet.thumbnails.medium.url;
+  thumb.alt = video.snippet.title;
+  thumb.className = 'img-fluid rounded playlist-thumb';
+  thumb.dataset.videoId = video.id.videoId;
 
-thumb.addEventListener('click', () => {
-    // Update main video
-    document.getElementById('main-video').src = `https://www.youtube.com/embed/${video.id.videoId}`;
-
-    // Remove active class from all thumbs
-    document.querySelectorAll('.playlist-thumb').forEach(t => t.classList.remove('active'));
-
-    // Set active on clicked thumb
+  thumb.addEventListener('click', () => {
+    document.getElementById('main-video').src =
+      `https://www.youtube.com/embed/${video.id.videoId}`;
+    document.querySelectorAll('.playlist-thumb')
+      .forEach(t => t.classList.remove('active'));
     thumb.classList.add('active');
   });
 
@@ -52,17 +56,17 @@ async function init() {
   const loader = document.getElementById('video-loader');
   try {
     const videos = await fetchVideos();
-    if (videos.length > 0) {
-      document.getElementById('main-video').src = `https://www.youtube.com/embed/${videos[0].id.videoId}`;
+    if (videos.length) {
+      document.getElementById('main-video').src =
+        `https://www.youtube.com/embed/${videos[0].id.videoId}`;
       const playlist = document.getElementById('video-playlist');
-      videos.forEach(video => {
-        playlist.appendChild(createPlaylistItem(video));
-      });
+      videos.forEach(v => playlist.appendChild(createPlaylistItem(v)));
     }
-  } catch (error) {
-    console.error('Error fetching videos:', error);
+  } catch (err) {
+    console.error('Error fetching playlist:', err);
   } finally {
-    loader?.remove(); // Remove loader whether it succeeds or fails
+    loader?.remove();
   }
 }
-init();
+
+window.addEventListener('load', init);

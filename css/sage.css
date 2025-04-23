@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: "Georgia";
     src: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/fonts/georgia.ttf') format("truetype");
@@ -10,7 +9,7 @@ body {
   font-family: "Georgia", sans-serif;
   font-weight: 300;
   text-shadow: 0 0 12px rgba(196,196,196,0.2);
-  background-image: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/img/sage_tony.jpg');
+  background-image: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/img/hl_album_art.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -39,7 +38,6 @@ body {
 @keyframes fadeOutOverlay { to {display:none; visibility:hidden;} }
 
 .navbar {
-  border-top:1px solid rgba(255,255,255,0.6);
   border-bottom:1px solid rgba(255,255,255,0.6);
   border-radius:1px;
   transition:transform 0.3s ease-in-out;
@@ -227,4 +225,20 @@ footer {
   }
 
   .section-dark { padding-top: 35%; }
+}
+
+.navbar-nav .nav-link.active {
+  color: #fff !important;
+  animation: navGlow 1.5s ease-in-out infinite alternate;
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.8),
+    0 0 16px rgba(255,255,255,0.6);
+}
+@keyframes navGlow {
+  from {
+    text-shadow: 0 0 8px rgba(255,255,255,0.8), 0 0 16px rgba(255,255,255,0.6);
+  }
+  to {
+    text-shadow: 0 0 16px rgba(255,255,255,1), 0 0 24px rgba(255,255,255,0.8);
+  }
 }

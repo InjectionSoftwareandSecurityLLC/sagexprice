@@ -3,244 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sage X Price</title>
+  <title>Latest Release | Sage X Price</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Cutive+Mono&family=Quicksand:wght@300..700&display=swap" rel="stylesheet"/>
-  <style>
-
-    @font-face {
-        font-family: "Georgia";
-        src: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/fonts/georgia.ttf') format("truetype");
-    }
-
-    body {
-      background-color: #000;
-      color: #f0f0f0;
-      font-family: "Georgia", sans-serif;
-      font-weight: 300;
-      text-shadow: 0 0 12px rgba(196,196,196,0.2);
-      background-image: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/img/sage_tony.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-    #overlay {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      pointer-events: none;
-      animation: fadeOutOverlay 2s ease 2.5s forwards;
-    }
-    .overlay-bg { position:absolute; inset:0; background:rgba(0,0,0,0.9); z-index:1; animation:fadeOutBg 2s ease 2.5s forwards; }
-    .overlay-image { position:relative; z-index:2; width:35%; opacity:0; animation:fadeInOutImg 2.5s ease-in-out forwards; }
-
-    @keyframes fadeInOutImg { 
-      0%   {opacity:0; transform:scale(1.05);} 
-      25%  {opacity:1; transform:scale(1);} 
-      80%  {opacity:1;} 
-      100% {opacity:0;} 
-    }
-    @keyframes fadeOutBg    { to {opacity:0;} }
-    @keyframes fadeOutOverlay { to {display:none; visibility:hidden;} }
-
-    .navbar {
-      border-top:1px solid rgba(255,255,255,0.6);
-      border-bottom:1px solid rgba(255,255,255,0.6);
-      border-radius:1px;
-      transition:transform 0.3s ease-in-out;
-      position:fixed;
-      width:100%;
-      z-index:1000;
-    }
-    .navbar .container-fluid {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    .navbar-brand {
-      font-size:clamp(1rem,4vw,1.5rem);
-      white-space:nowrap;
-      color:#e0e0e0!important;
-      text-shadow:0 0 14px rgba(196,196,196,0.2);
-    }
-    .navbar-logo { width:7%; }
-
-    .navbar-expand-md .navbar-collapse {
-      display: flex !important;
-      justify-content: space-evenly;  
-      align-items: center;
-      width: 100% !important;    
-    }
-
-
-    .navbar-nav {
-      display: flex;
-      flex-wrap: nowrap;       
-      width: auto;                  
-      margin: 0;                      
-    }
-
-
-    .navbar-nav .nav-link {
-      white-space: nowrap;
-      padding: 0 1rem;                
-    }
-
-    .navbar-nav .nav-link {
-      color:#e0e0e0!important;
-      transition:color 0.3s, background-color 0.3s, opacity 0.3s;
-      font-weight:300;
-      text-shadow:0 0 14px rgba(196,196,196,0.2);
-    }
-    .navbar-nav .nav-link:hover {
-      color:#fff!important;
-      background-color:rgba(255,255,255,0.15);
-      border-radius:5px;
-      opacity:0.85;
-    }
-
-    .navbar-toggler-nt {
-      display:none;
-      position:relative;
-      width:30px;
-      height:24px;
-      background:none;
-      border:none;
-      cursor:pointer;
-      z-index:1100;
-    }
-    .navbar-toggler-nt .bar {
-      position:absolute;
-      width:100%;
-      height:1px;
-      background:#fff;
-      border-radius:2px;
-      transition:top 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
-    }
-    .navbar-toggler-nt .bar:nth-child(1) { top:0; }
-    .navbar-toggler-nt .bar:nth-child(2) { top:50%; transform:translateY(-50%); }
-    .navbar-toggler-nt .bar:nth-child(3) { bottom:0; }
-
-    .navbar-toggler-nt.open .bar:nth-child(1) {
-      top:50%; transform:rotate(45deg);
-    }
-    .navbar-toggler-nt.open .bar:nth-child(2) { opacity:0; }
-    .navbar-toggler-nt.open .bar:nth-child(3) {
-      top:50%; transform:rotate(-45deg); bottom:auto;
-    }
-
-    /* hide mobile socials on desktop */
-    .mobile-social-icons { display:none; }
-
-    h2 { font-weight:300; text-shadow:0 0 16px rgba(196,196,196,0.2); margin-bottom:2rem; }
-    .section { padding:5rem 1rem; text-align:center; width:100%; }
-    .section-dark { background-color:rgba(15,15,15,0.85); padding-top:8%; }
-    .section-darker { background-color:#000; }
-
-    .embed-container {
-      position:relative; overflow:hidden; max-width:100%;
-      border-radius:12px; margin:0 auto;
-      box-shadow:0 0 20px rgba(196,196,196,0.2);
-    }
-    .embed-container iframe { width:100%; height:100%; border:none; }
-
-    .music-preview { max-width:500px; margin:0 auto; }
-    .music-preview img {
-      width:100%; border-radius:10px; margin-bottom:1rem;
-      box-shadow:0 0 20px rgba(196,196,196,0.2);
-    }
-    .music-preview a {
-      display:inline-block; margin-top:1rem;
-      padding:0.6rem 1.2rem; border:1px solid #f0f0f0;
-      color:#f0f0f0; text-decoration:none; font-weight:400;
-      text-shadow:0 0 6px rgba(75,75,75,0.85);
-      border-radius:4px; transition:all 0.2s ease-in-out;
-    }
-    .music-preview a:hover {
-      color:#000; background-color:#f0f0f0;
-      text-shadow:none; box-shadow:0 0 10px rgba(255,255,255,0.4);
-    }
-
-    footer {
-      background-color:rgba(0,0,0,0.6);
-      padding:2rem 0; text-align:center;
-    }
-    .social-icons a {
-      color:#f0f0f0; font-size:1.5rem; margin:0 1rem;
-      transition:color 0.3s, transform 0.3s;
-      text-shadow:0 0 6px rgba(196,196,196,0.3);
-    }
-    .social-icons a:hover {
-      color:#fff; transform:scale(1.1);
-      text-shadow:0 0 12px rgba(255,255,255,0.4);
-    }
-
-    @media (max-width: 768px) {
-      .navbar{
-        background-color: black;
-      }
-      .navbar .container-fluid {
-        flex-wrap: wrap;
-      }
-      .navbar-brand { order: 0; }
-      .navbar-toggler-nt {
-        order: 1;
-        display: block;
-        margin-left: 85%;
-        margin-top: -13%;
-      }
-      .navbar-collapse {
-        order: 2;
-        width: 100%;
-        text-align: center;
-      }
-      .navbar-nav {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .navbar-expand-md .navbar-collapse {
-        display: flex !important;
-        justify-content: space-evenly;
-        align-items: center;
-        width: auto !important;
-      }
-
-      .navbar-expand-md .navbar-collapse {
-        display: none !important;    
-        width: 100% !important;       
-      }
-      .navbar-expand-md .navbar-collapse.show {
-        display: block !important;     
-      }
-      .navbar-nav .nav-item { width: 100%; }
-      .navbar-nav .nav-link {
-        display: block; width: 100%; padding: 0.75rem 0;
-      }
-      .navbar-logo { width: 25%; }
-
-      /* show mobile socials */
-      .mobile-social-icons {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        padding: 1rem 0;
-      }
-
-      .mobile-social-icons a{
-        color: white;
-      }
-
-      .section-dark { padding-top: 35%; }
-    }
-  </style>
+  <link rel="stylesheet"href="css/sage.css"/>
 </head>
 <body>
   <div id="overlay">
@@ -261,13 +30,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav custom-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="latest-release.html">Latest</a></li>
           <li class="nav-item"><a class="nav-link" href="music.html">Music</a></li>
           <li class="nav-item"><a class="nav-link" href="https://sagexprice.shop">Shop</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-          <li class="nav-item"><a class="nav-link" href="beats-and-engineering.html">Engineering</a></li>
           <li class="nav-item"><a class="nav-link" href="videos.html">Watch Now</a></li>
+          <li class="nav-item"><a class="nav-link" href="beats-and-engineering.html">Beats / Mixes</a></li>          
           <li class="nav-item"><a class="nav-link" href="epk.html">EPK</a></li>
         </ul>
         <div class="mobile-social-icons">
@@ -306,6 +72,15 @@
     </div>
   </section>
 
+
+  <!-- Top Played Songs Section -->
+<section id="top-songs" class="section section-dark">
+  <div class="container">
+    <h2>Top Songs by Sage X Price</h2>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3Vco1kIxXUdKYmlKPcrorM?utm_source=generator&theme=0" width="100%" height="550" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+</section>
+
   <!-- Footer with Social Media Links -->
   <footer>
     <div class="container social-icons">
@@ -315,24 +90,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const collapseEl = document.getElementById('navbarNav');
-    const toggleBtn  = document.getElementById('navToggleBtn');
-
-    collapseEl.addEventListener('shown.bs.collapse', () => toggleBtn.classList.add('open'));
-    collapseEl.addEventListener('hidden.bs.collapse', () => toggleBtn.classList.remove('open'));
-
-    let lastScrollTop = 0;
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-      const st = window.scrollY || document.documentElement.scrollTop;
-      navbar.style.transform = st > lastScrollTop ? 'translateY(-100%)' : 'translateY(0)';
-      lastScrollTop = st <= 0 ? 0 : st;
-    });
-
-    window.addEventListener("load", () => {
-      setTimeout(() => document.getElementById("overlay")?.remove(), 4500);
-    });
-  </script>
+  <script src="js/sage.js"></script>
 </body>
 </html>
