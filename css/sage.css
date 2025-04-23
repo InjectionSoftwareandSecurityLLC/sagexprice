@@ -9,7 +9,7 @@ body {
   font-family: "Georgia", sans-serif;
   font-weight: 300;
   text-shadow: 0 0 12px rgba(196,196,196,0.2);
-  background-image: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/img/hl_album_art.png');
+  background-image: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/img/sage_tony.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -155,9 +155,10 @@ h2 { font-weight:300; text-shadow:0 0 16px rgba(196,196,196,0.2); margin-bottom:
 }
 
 footer {
-  background-color:rgba(0,0,0,0.6);
-  padding:2rem 0; text-align:center;
-}
+    background-color: #1c1c1c;
+    padding: 2rem 0;
+    text-align: center;
+  }
 .social-icons a {
   color:#f0f0f0; font-size:1.5rem; margin:0 1rem;
   transition:color 0.3s, transform 0.3s;
@@ -241,4 +242,17 @@ footer {
   to {
     text-shadow: 0 0 16px rgba(255,255,255,1), 0 0 24px rgba(255,255,255,0.8);
   }
+  
 }
+
+.email-footer{
+    margin-top: 1%;
+  }
+
+  a{
+    color: white;
+  }
+
+  a:hover{
+        opacity: 0.75;
+  }
