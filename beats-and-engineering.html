@@ -230,8 +230,39 @@
     }
 
     @media (max-width: 768px) {
-      .navbar {
-        background-color: black;
+ /* make the collapse container into a full-screen panel */
+ .navbar-collapse {
+          position: absolute;
+          top: 0; 
+          left: 0;
+          width: 100vw;       /* full viewport width */
+          height: 100vh;      /* full viewport height */
+          overflow-y: auto;   /* scroll if too many links */
+          background-color: black;
+          display: none;      /* hide by default */
+          text-align: center;
+          padding-top: 60px;  /* push links below your brand/toggler (adjust as needed) */
+          z-index: 1050;      /* above most page content */
+        }
+
+        /* when “show” is toggled, display it */
+        .navbar-collapse.show {
+          display: block !important;
+        }
+
+        /* stack your nav-links vertically */
+        .navbar-nav {
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .navbar-nav .nav-link {
+          padding: 1rem 0;
+          width: 100%;
+        }
+      .navbar{
+        background-color: rgba(196, 196, 196, 0.05);
       }
       .navbar .container-fluid {
         flex-wrap: wrap;
@@ -292,6 +323,13 @@
 
       .section-dark {
         padding-top: 35%;
+      }
+      iframe{
+        width: 100%;
+      }
+
+      .section{
+        margin-top: 15%;
       }
     }
 
@@ -404,11 +442,10 @@
         </ul>
         <div class="mobile-social-icons">
           <a href="https://www.instagram.com/sagexprice/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target
-="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           <a href="https://www.tiktok.com/@sagexprice" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-          <a href="#" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
-          <a href="#" target="_blank" aria-label="Apple Music"><i class="fab fa-apple"></i></a>
+          <a href="https://open.spotify.com/artist/7HFWAHYOe2o2diWwiWX5Db?si=ia_TrZLFQPOgvXYtuU77mg" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+          <a href="https://music.apple.com/us/artist/sage-x-price/1706430792" target="_blank" aria-label="Apple Music"><i class="fab fa-apple"></i></a>
         </div>
       </div>
     </div>
@@ -420,7 +457,7 @@
       <!-- Beats -->
       <h2>BEATS</h2>
       <p>200$ &ndash; Exclusive with Stems<br/>
-        DM <u><a href="https://www.instagram.com/sagexprice/">@sagexprice</a></u> or email to purchase</p>
+        DM <u><a href="https://www.instagram.com/sagexprice/">@sagexprice</a></u> or email <u><a href="mailto:sagepricemgmt@gmail.com">sagepricemgmt@gmail.com</a></u> to purchase</p>
       </div>
       <iframe 
         src="https://offtop.com/pack/Ng7WaxtQxj" 
