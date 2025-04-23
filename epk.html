@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About | Sage X Price</title>
+  <title>EPK | Sage X Price</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -86,50 +86,93 @@
       }
     }
 
-    /* NAVBAR FIX: align brand left, hamburger right */
-    .navbar .container-fluid {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .navbar-brand {
-      font-size: clamp(1rem, 4vw, 1.5rem);
-      white-space: nowrap;
-    }
-
-
     .navbar {
-      border-top: 1px solid rgba(255, 255, 255, 0.6);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-      border-radius: 1px;
-      transition: transform 0.3s ease-in-out;
-      z-index: 1000;
-      position: fixed;
-      width: 100%;
+      border-bottom:1px solid rgba(255,255,255,0.6);
+      border-radius:1px;
+      transition:transform 0.3s ease-in-out;
+      position:fixed;
+      width:100%;
+      z-index:1000;
+    }
+    .navbar .container-fluid {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .navbar-brand {
+      font-size:clamp(1rem,4vw,1.5rem);
+      white-space:nowrap;
+      color:#e0e0e0!important;
+      text-shadow:0 0 14px rgba(196,196,196,0.2);
+    }
+    .navbar-logo { width:7%; }
+
+    .navbar-expand-md .navbar-collapse {
+      display: flex !important;
+      justify-content: space-evenly;  
+      align-items: center;
+      width: 100% !important;    
     }
 
-    .navbar-brand, .nav-link {
-      color: #e0e0e0 !important;
-      transition: color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
-      font-weight: 300;
-      text-shadow: 0 0 14px rgba(196, 196, 196, 0.2);
+
+    .navbar-nav {
+      display: flex;
+      flex-wrap: nowrap;       
+      width: auto;                  
+      margin: 0;                      
     }
 
-    .navbar-logo {
-      width: 7%;
+
+    .navbar-nav .nav-link {
+      white-space: nowrap;
+      padding: 0 1rem;                
     }
 
-    .nav-link:hover {
-      color: #ffffff !important;
-      background-color: rgba(255, 255, 255, 0.15);
-      border-radius: 5px;
-      opacity: 0.85;
+    .navbar-nav .nav-link {
+      color:#e0e0e0!important;
+      transition:color 0.3s, background-color 0.3s, opacity 0.3s;
+      font-weight:300;
+      text-shadow:0 0 14px rgba(196,196,196,0.2);
+    }
+    .navbar-nav .nav-link:hover {
+      color:#fff!important;
+      background-color:rgba(255,255,255,0.15);
+      border-radius:5px;
+      opacity:0.85;
     }
 
     .navbar-toggler-nt {
-        display: none;
+      display:none;
+      position:relative;
+      width:30px;
+      height:24px;
+      background:none;
+      border:none;
+      cursor:pointer;
+      z-index:1100;
     }
+    .navbar-toggler-nt .bar {
+      position:absolute;
+      width:100%;
+      height:1px;
+      background:#fff;
+      border-radius:2px;
+      transition:top 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+    }
+    .navbar-toggler-nt .bar:nth-child(1) { top:0; }
+    .navbar-toggler-nt .bar:nth-child(2) { top:50%; transform:translateY(-50%); }
+    .navbar-toggler-nt .bar:nth-child(3) { bottom:0; }
+
+    .navbar-toggler-nt.open .bar:nth-child(1) {
+      top:50%; transform:rotate(45deg);
+    }
+    .navbar-toggler-nt.open .bar:nth-child(2) { opacity:0; }
+    .navbar-toggler-nt.open .bar:nth-child(3) {
+      top:50%; transform:rotate(-45deg); bottom:auto;
+    }
+
+    /* hide mobile socials on desktop */
+    .mobile-social-icons { display:none; }
 
     .section-dark {
       background-color: rgba(15, 15, 15, 0.85);
@@ -157,7 +200,7 @@
     }
 
     footer {
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: #1c1c1c;
       padding: 2rem 0;
       text-align: center;
     }
@@ -177,75 +220,60 @@
     }
 
     @media (max-width: 768px) {
-        .navbar-toggler-nt {
-        display: inline-block;
-        padding: var(--bs-navbar-toggler-padding-y) var(--bs-navbar-toggler-padding-x);
-        font-size: var(--bs-navbar-toggler-font-size);
-        line-height: 1;
-        color: var(--bs-navbar-color);
-        border: var(--bs-border-width) solid var(--bs-navbar-toggler-border-color);
-        border-radius: var(--bs-navbar-toggler-border-radius);
-        transition: var(--bs-navbar-toggler-transition);
-      }
-
-      .navbar-nav .nav-link {
-        color: #f0f0f0 !important;
-      }
-
-      .custom-nav {
-        flex-direction: column;
-        list-style: none;
-        padding-left: 0;
-      }
-
-      .navbar-brand {
-        display: block !important;
-        margin: 0 auto 0.5rem auto;
-        text-align: center;
-        width: 100%;
-      }
-
-      .navbar .container-fluid {
-        flex-direction: column;
-        align-items: center;
-      }
-
-
       .navbar{
-        background-color: rgba(0,0,0,0.75);
+        background-color: black;
       }
-
+      .navbar .container-fluid {
+        flex-wrap: wrap;
+      }
+      .navbar-brand { order: 0; }
       .navbar-toggler-nt {
-        align-self: center;
-        margin-bottom: 0.5rem;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: #f0f0f0;
+        order: 1;
+        display: block;
+        margin-left: 85%;
+        margin-top: -13%;
       }
-
       .navbar-collapse {
+        order: 2;
         width: 100%;
         text-align: center;
       }
-
       .navbar-nav {
         flex-direction: column;
         align-items: center;
       }
 
-      .navbar-nav .nav-item {
-        width: 100%;
+      .navbar-expand-md .navbar-collapse {
+        display: flex !important;
+        justify-content: space-evenly;
+        align-items: center;
+        width: auto !important;
       }
 
+      .navbar-expand-md .navbar-collapse {
+        display: none !important;    
+        width: 100% !important;       
+      }
+      .navbar-expand-md .navbar-collapse.show {
+        display: block !important;     
+      }
+      
+      .navbar-nav .nav-item { width: 100%; }
       .navbar-nav .nav-link {
-        display: block;
-        width: 100%;
-        padding: 0.75rem 0;
+        display: block; width: 100%; padding: 0.75rem 0;
+      }
+      .navbar-logo { width: 25%; }
+
+      /* show mobile socials */
+      .mobile-social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1rem 0;
       }
 
-      .navbar-logo {
-        width: 25%;
+      .mobile-social-icons a{
+        color: white;
       }
 
       .overlay-image {
@@ -261,33 +289,68 @@
         padding-top: 35%;
       }
     }
+
+    .navbar-nav .nav-link.active {
+      color: #fff !important;
+      animation: navGlow 1.5s ease-in-out infinite alternate;
+      text-shadow:
+        0 0 8px rgba(255,255,255,0.8),
+        0 0 16px rgba(255,255,255,0.6);
+    }
+    @keyframes navGlow {
+      from {
+        text-shadow: 0 0 8px rgba(255,255,255,0.8), 0 0 16px rgba(255,255,255,0.6);
+      }
+      to {
+        text-shadow: 0 0 16px rgba(255,255,255,1), 0 0 24px rgba(255,255,255,0.8);
+      }
+    }
+
+    .email-footer{
+      margin-top: 1%;
+    }
+
+    a{
+      color: white;
+    }
+
+    a:hover{
+          opacity: 0.75;
+    }
+
   </style>
 </head>
 <body>
-    <nav class="navbar navbar-light navbar-expand-lg fixed-top">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#"><img class="img-fluid navbar-logo" src="https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/img/Sage_Logo_Short_White.png"/></a>
-          <button class="navbar-toggler-nt navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <i id="navToggleIcon" class="fas fa-chevron-down"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav custom-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="music.html">Music</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="https://sagexprice.shop">Shop</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-            </ul>
-          </div>
+  <nav class="navbar navbar-light navbar-expand-md fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img class="img-fluid navbar-logo" src="https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/img/Sage_Logo_Short_White.png" alt="Logo"/>
+      </a>
+      <button id="navToggleBtn" class="navbar-toggler-nt" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav custom-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="music.html">Music</a></li>
+          <li class="nav-item"><a class="nav-link" href="videos.html">Watch Now</a></li>
+          <li class="nav-item"><a class="nav-link" href="events.html">Shows</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://sagexprice.shop">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="beats-and-engineering.html">Beats / Mixes</a></li>          
+          <li class="nav-item"><a class="nav-link" href="epk.html">EPK</a></li>
+        </ul>
+        <div class="mobile-social-icons">
+          <a href="https://www.instagram.com/sagexprice/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/@sagexprice" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+          <a href="#" target="_blank" aria-label="Apple Music"><i class="fab fa-apple"></i></a>
         </div>
-      </nav>
+      </div>
+    </div>
+  </nav>
 
   <!-- About Content Section -->
   <section class="section-dark">
@@ -307,44 +370,13 @@
       <a href="https://www.instagram.com/sagexprice/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
       <a href="https://www.tiktok.com/@sagexprice" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
     </div>
+    <div class="container email-footer">
+      <p>Inquiries &amp; Bookings:</p>
+      <p><u><a href="mailto:sagepricemgmt@gmail.com">sagepricemgmt@gmail.com</a></u></p>
+    </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const toggleButton = document.querySelector('.navbar-toggler-nt');
-    const toggleIcon = document.getElementById('navToggleIcon');
-    const collapseElement = document.getElementById('navbarNav');
-  
-    collapseElement.addEventListener('shown.bs.collapse', () => {
-      toggleIcon.classList.remove('fa-chevron-down');
-      toggleIcon.classList.add('fa-chevron-up');
-    });
-  
-    collapseElement.addEventListener('hidden.bs.collapse', () => {
-      toggleIcon.classList.remove('fa-chevron-up');
-      toggleIcon.classList.add('fa-chevron-down');
-    });
-
-
-
-    let lastScrollTop = 0;
-    const navbar = document.querySelector('.navbar');
-
-    window.addEventListener('scroll', function () {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-      if (scrollTop > lastScrollTop) {
-        // Scrolling down
-        navbar.style.transform = 'translateY(-100%)';
-      } else {
-        // Scrolling up
-        navbar.style.transform = 'translateY(0)';
-      }
-
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-    });
-
-
-  </script>
+  <script src="js/sage.js"></script>
 </body>
 </html>

@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Music | Sage X Price</title>
+  <title>Beats &amp; Engineering | Sage X Price</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Cutive+Mono&family=Quicksand:wght@300..700&display=swap" rel="stylesheet"/>
   <style>
     @font-face {
-        font-family: "Georgia";
-        src: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/fonts/georgia.ttf') format("truetype");
+      font-family: "Georgia";
+      src: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/fonts/georgia.ttf') format("truetype");
     }
+
     body {
       background-color: #000;
       color: #f0f0f0;
@@ -111,14 +114,12 @@
       width: 100% !important;    
     }
 
-
     .navbar-nav {
       display: flex;
       flex-wrap: nowrap;       
       width: auto;                  
       margin: 0;                      
     }
-
 
     .navbar-nav .nav-link {
       white-space: nowrap;
@@ -171,52 +172,41 @@
     /* hide mobile socials on desktop */
     .mobile-social-icons { display:none; }
 
+    .section-dark {
+      background-color: rgba(15, 15, 15, 0.85);
+      padding: 8% 1rem 4rem;
+      text-align: center;
+    }
 
     .section {
-      padding: 8rem 1rem;
+      padding: 8% 1rem 4rem;
       text-align: center;
-      background-color: rgba(10, 10, 10, 0.9);
-      min-height: 100vh;
     }
+
+    .section-eng{
+      margin-top: -7%;
+      padding: 8% 1rem 4rem;
+      text-align: center;
+    }
+
 
     h2 {
       font-weight: 300;
-      text-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
-      margin-bottom: 2rem;
+      text-shadow: 0 0 16px rgba(196, 196, 196, 0.2);
+      margin-bottom: 1rem;
     }
 
-    .dice-links {
-      display: list-item;
-      list-style: none;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem 2rem;
-      max-width: 600px;
-      margin: 2rem auto;
-      justify-content: center;
-    }
-
-    .link-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 1rem;
-      border: 1px solid #f0f0f0;
-      border-radius: 100px;
-      background-color: rgba(255, 255, 255, 0.05);
-      color: #f0f0f0;
-      text-decoration: none;
-      font-weight: 400;
-      font-size: 0.95rem;
-      text-shadow: 0 0 6px rgba(75, 75, 75, 0.85);
-      transition: all 0.25s ease-in-out;
-      margin: 5%;
-    }
-
-    .link-button:hover {
-      background-color: #f0f0f0;
-      color: #000;
-      text-shadow: none;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    .about-text {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #ccc;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: left;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
     }
 
     footer {
@@ -240,7 +230,7 @@
     }
 
     @media (max-width: 768px) {
-      .navbar{
+      .navbar {
         background-color: black;
       }
       .navbar .container-fluid {
@@ -292,26 +282,78 @@
         padding: 1rem 0;
       }
 
-      .mobile-social-icons a{
+      .mobile-social-icons a {
         color: white;
       }
 
       .overlay-image {
-        position: relative;
-        z-index: 2;
-        width: 50%;
-        opacity: 0;
-        animation: fadeInOutImg 2.5s ease-in-out forwards;
+        width: 50%; /* slightly larger on mobile */
       }
 
       .section-dark {
-        background-color: rgba(15, 15, 15, 0.85);
         padding-top: 35%;
       }
+    }
 
-      .section {
-        padding-top: 35%;
-      }
+    /* beats & engineering section styles */
+    .beats-image-container {
+      position: relative;
+      display: inline-block;
+      margin: 1.5rem auto 2rem;
+    }
+    .beats-image-container img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+    }
+    .beats-image-container .beats-overlay {
+      position: absolute;
+      top: 80%; left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 0.75rem 1.25rem;
+      border-radius: 4px;
+    }
+    .beats-image-container .beats-overlay a {
+      color: #f0f0f0;
+      text-decoration: none;
+      font-weight: 500;
+      text-shadow: 0 0 8px rgba(255,255,255,0.3);
+    }
+
+    .embed-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+      margin-top: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+    }
+    .embed-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+
+    .about-text {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #ccc;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    }
+
+    .email-footer{
+      margin-top: 1%;
     }
 
     .navbar-nav .nav-link.active {
@@ -328,19 +370,19 @@
       to {
         text-shadow: 0 0 16px rgba(255,255,255,1), 0 0 24px rgba(255,255,255,0.8);
       }
-    }
+  }
 
-    a{
-      color: white;
-    }
+  a{
+    color: white;
+  }
 
-    a:hover{
-          opacity: 0.75;
-    }
-
+  a:hover{
+        opacity: 0.75;
+      }
   </style>
 </head>
 <body>
+
   <nav class="navbar navbar-light navbar-expand-md fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
@@ -362,7 +404,8 @@
         </ul>
         <div class="mobile-social-icons">
           <a href="https://www.instagram.com/sagexprice/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target
+="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           <a href="https://www.tiktok.com/@sagexprice" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
           <a href="#" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
           <a href="#" target="_blank" aria-label="Apple Music"><i class="fab fa-apple"></i></a>
@@ -371,44 +414,51 @@
     </div>
   </nav>
 
+  <!-- Beats & Engineering Content Section -->
   <section class="section">
-    <div class="container">
-      <h2>Find Me On</h2>
-      <div class="dice-links">
-        <a class="link-button" href="https://music.apple.com/us/artist/sage-x-price/1706430792" target="_blank">
-          <i class="fab fa-apple fa-2xl"></i>
-        </a>
-        <a class="link-button" href="https://open.spotify.com/artist/7HFWAHYOe2o2diWwiWX5Db?si=ia_TrZLFQPOgvXYtuU77mg" target="_blank">
-          <i class="fab fa-spotify fa-2xl"></i>
-        </a>
-        <a class="link-button" href="https://www.youtube.com/channel/UCFjMDuV2peRouWDbxNkD94A" target="_blank">
-          <i class="fab fa-youtube fa-2xl"></i>
-        </a>
-        <a class="link-button" href="https://on.soundcloud.com/XdgpjZbAkqfkoiHSA" target="_blank">
-          <i class="fab fa-soundcloud fa-2xl"></i>
-        </a>
-        <a class="link-button" href="https://music.amazon.com/artists/B0CHN6M12Q/sage-x-price?marketplaceId=ATVPDKIKX0DER&musicTerritory=US&ref=dm_sh_Jkg9OCYX781ZMlivFbJLIS0c1" target="_blank">
-          <i class="fab fa-amazon fa-2xl"></i>
-        </a>
-        <a class="link-button" href="https://tidal.com/browse/artist/41975846" target="_blank">
-          <i class="fas fa-music fa-2xl"></i>
-        </a>
+    <div class="container about-text">
+      <!-- Beats -->
+      <h2>BEATS</h2>
+      <p>200$ &ndash; Exclusive with Stems<br/>
+        DM <u><a href="https://www.instagram.com/sagexprice/">@sagexprice</a></u> or email to purchase</p>
       </div>
+      <iframe 
+        src="https://offtop.com/pack/Ng7WaxtQxj" 
+        width="50%" height="900" 
+        style="border:none; margin-top: 3%;">
+      </iframe>
+    </section>
 
+
+    <section class="section-eng">
+      <div class="container about-text">
+      <!-- Engineering -->
+      <h2>ENGINEERING</h2>
+
+
+      <p>200$ &ndash; Mix and Master <br>
+         (Comes with main, clean, acapella, show &amp; instrumental masters)<br/>
+         Send stems to <u><a href="mailto:sagepricemgmt@gmail.com">sagepricemgmt@gmail.com</a></u></p>
     </div>
   </section>
 
-    <!-- Footer with Social Media Links -->
-    <footer>
-      <div class="container social-icons">
-        <a href="https://www.instagram.com/sagexprice/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@sagexprice" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      <!-- Spotify Embed -->
+      <div class="container">
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6ip9AyDlZMfner2QKIutiI?si=9aG_JxYbQcaoIqrf82Y16Q?utm_source=generator&theme=0" width="100%" height="550" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
-      <div class="container email-footer">
-        <p>Inquiries &amp; Bookings:</p>
-        <p><u><a href="mailto:sagepricemgmt@gmail.com">sagepricemgmt@gmail.com</a></u></p>
-      </div>
-    </footer>
+    </div>
+
+
+  <footer>
+    <div class="container social-icons">
+      <a href="https://www.instagram.com/sagexprice/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@sagexprice" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+    </div>
+    <div class="container email-footer">
+      <p>Inquiries &amp; Bookings:</p>
+      <p><u><a href="mailto:sagepricemgmt@gmail.com">sagepricemgmt@gmail.com</a></u></p>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/sage.js"></script>
