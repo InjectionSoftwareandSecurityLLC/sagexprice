@@ -426,6 +426,34 @@
   a:hover{
         opacity: 0.75;
       }
+
+      #offtop-loader {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        min-height: 50vh;
+      }
+      #offtop-loader .spinner-grow {
+        width: clamp(4rem, 15vw, 25rem);
+        height: clamp(4rem, 15vw, 25rem);
+        background-color: rgba(255, 255, 255, 0.85);
+        opacity: 0.9;
+        animation:
+          spinner-grow 0.75s linear infinite,
+          spinnerGlow 1s ease-in-out infinite alternate;
+      }
+      @keyframes spinnerGlow {
+        0% {
+          filter:
+            drop-shadow(0 0 0.5rem rgba(255,255,255,0.5))
+            drop-shadow(0 0 1rem   rgba(255,255,255,0.3));
+        }
+        100% {
+          filter:
+            drop-shadow(0 0 1.5rem rgba(255,255,255,1))
+            drop-shadow(0 0 3rem   rgba(255,255,255,0.7));
+        }
+      }
   </style>
 </head>
 <body>
@@ -468,7 +496,14 @@
       <p>200$ &ndash; Exclusive with Stems<br/>
         DM <u><a href="https://www.instagram.com/sagexprice/">@sagexprice</a></u> or email <u><a href="mailto:sagepricemgmt@gmail.com">sagepricemgmt@gmail.com</a></u> to purchase</p>
       </div>
+      <div id="offtop-loader" class="text-center py-5">
+        <div class="spinner-grow text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
       <iframe 
+        class="visually-hidden"
+        id="offtop-iframe"
         src="https://offtop.com/pack/Ng7WaxtQxj" 
         width="50%" height="900" 
         style="border:none; margin-top: 3%;">

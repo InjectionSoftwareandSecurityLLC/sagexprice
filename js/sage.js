@@ -29,3 +29,12 @@ const collapseEl = document.getElementById('navbarNav');
         }
       });
     });
+
+const offtop_iframe = document.getElementById('offtop-iframe');
+const offtop_loader = document.getElementById('offtop-loader');
+offtop_iframe.onload = function() {
+
+    offtop_loader.remove();
+    offtop_iframe.className = "";
+    
+};
