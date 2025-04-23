@@ -171,39 +171,39 @@ footer {
 
 @media (max-width: 768px) {
  /* make the collapse container into a full-screen panel */
- .navbar-collapse {
-    position: absolute;
-    top: 0; 
-    left: 0;
-    width: 100vw;       /* full viewport width */
-    height: 100vh;      /* full viewport height */
-    overflow-y: auto;   /* scroll if too many links */
-    background-color: black;
-    display: none;      /* hide by default */
-    text-align: center;
-    padding-top: 60px;  /* push links below your brand/toggler (adjust as needed) */
-    z-index: 1050;      /* above most page content */
-  }
+        .navbar-collapse {
+          position: absolute;
+          top: 0; 
+          left: 0;
+          width: 100vw;       /* full viewport width */
+          height: 100vh;      /* full viewport height */
+          overflow-y: auto;   /* scroll if too many links */
+          background-color: black;
+          display: none;      /* hide by default */
+          text-align: center;
+          padding-top: 60px;  /* push links below your brand/toggler (adjust as needed) */
+          z-index: 1050;      /* above most page content */
+        }
 
-  /* when “show” is toggled, display it */
-  .navbar-collapse.show {
-    display: block !important;
-  }
+        /* when “show” is toggled, display it */
+        .navbar-collapse.show {
+          display: block !important;
+        }
 
-  /* stack your nav-links vertically */
-  .navbar-nav {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
+        /* stack your nav-links vertically */
+        .navbar-nav {
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+        }
 
-  .navbar-nav .nav-link {
-    padding: 1rem 0;
-    width: 100%;
-  }
-.navbar{
-  background-color: rgba(196, 196, 196, 0.05);
-}
+        .navbar-nav .nav-link {
+          padding: 1rem 0;
+          width: 100%;
+        }
+      .navbar{
+        background-color: rgba(196, 196, 196, 0.05);
+      }
   .navbar .container-fluid {
     flex-wrap: wrap;
   }
@@ -214,6 +214,15 @@ footer {
     margin-left: 85%;
     margin-top: -13%;
   }
+  .navbar-toggler-nt::before {
+    content: "";
+    position: absolute;
+    top: -1rem; left: -1rem;
+    right: -1rem; bottom: -1rem;
+    /* transparent but captures taps */
+  }
+  
+
   .navbar-collapse {
     order: 2;
     width: 100%;

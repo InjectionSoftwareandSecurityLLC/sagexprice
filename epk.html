@@ -236,6 +236,15 @@
           z-index: 1050;      /* above most page content */
         }
 
+
+        .navbar-toggler-nt::before {
+          content: "";
+          position: absolute;
+          top: -1rem; left: -1rem;
+          right: -1rem; bottom: -1rem;
+          /* transparent but captures taps */
+        }
+
         /* when “show” is toggled, display it */
         .navbar-collapse.show {
           display: block !important;
