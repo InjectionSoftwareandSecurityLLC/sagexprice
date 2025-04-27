@@ -1,4 +1,4 @@
-const collapseEl = document.getElementById('navbarNav');
+    const collapseEl = document.getElementById('navbarNav');
     const toggleBtn  = document.getElementById('navToggleBtn');
 
     collapseEl.addEventListener('shown.bs.collapse', () => toggleBtn.classList.add('open'));
@@ -35,6 +35,6 @@ const offtop_loader = document.getElementById('offtop-loader');
 offtop_iframe.onload = function() {
 
     offtop_loader.remove();
-    offtop_iframe.className = "";
+    offtop_iframe.className = "iframe-eng";
     
 };
