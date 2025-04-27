@@ -3,17 +3,25 @@
     src: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/fonts/georgia.ttf') format("truetype");
 }
 
-body {
-  background-color: #000;
-  color: #f0f0f0;
-  font-family: "Georgia", sans-serif;
-  font-weight: 300;
-  text-shadow: 0 0 12px rgba(196,196,196,0.2);
-  background-image: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/img/sage_tony.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+
+
+  body {
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+    color: #f0f0f0;
+    font-family: "Georgia", sans-serif;
+    font-weight: 300;
+    text-shadow: 0 0 12px rgba(196,196,196,0.2);
+    background-image: url('https://raw.githubusercontent.com/InjectionSoftwareandSecurityLLC/sagexprice/refs/heads/main/img/sage_tony.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  main {
+    flex: 1; /* grow to push footer down */
+  }
 
 #overlay {
   position: fixed;
@@ -130,6 +138,89 @@ h2 { font-weight:300; text-shadow:0 0 16px rgba(196,196,196,0.2); margin-bottom:
 .section-dark { background-color:rgba(15,15,15,0.85); padding-top:8%; }
 .section-darker { background-color:#000; }
 
+.section-epk {
+  background-color: rgba(15, 15, 15, 0.85);
+  padding: 8% 1rem 4rem 1rem;
+  text-align: center;
+  flex: 1 0 auto;  /* grow, don’t shrink below content */
+}
+
+.section-music {
+  padding: 8rem 1rem;
+  text-align: center;
+  background-color: rgba(10, 10, 10, 0.9);
+}
+
+.dice-links {
+  display: list-item;
+  list-style: none;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  justify-content: center;
+}
+
+.link-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  border: 1px solid #f0f0f0;
+  border-radius: 100px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.95rem;
+  text-shadow: 0 0 6px rgba(75, 75, 75, 0.85);
+  transition: all 0.25s ease-in-out;
+  margin: 5%;
+}
+
+.link-button:hover {
+  background-color: #f0f0f0;
+  color: #000;
+  text-shadow: none;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.social-icons a {
+  color: #f0f0f0;
+  font-size: 1.5rem;
+  margin: 0 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-shadow: 0 0 6px rgba(196, 196, 196, 0.3);
+}
+
+.social-icons a:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+}
+
+.section-events{
+  padding: 3% 1rem 4rem 1rem;
+  text-align: center;
+}
+
+.section-dark-eng {
+  background-color: rgba(15, 15, 15, 0.85);
+  padding: 8% 1rem 4rem;
+  text-align: center;
+}
+
+.section-eng-og {
+  padding: 8% 1rem 4rem;
+  text-align: center;
+}
+
+.section-eng{
+  margin-top: -7%;
+  padding: 8% 1rem 4rem;
+  text-align: center;
+}
+
 .embed-container {
   position:relative; overflow:hidden; max-width:100%;
   border-radius:12px; margin:0 auto;
@@ -154,10 +245,37 @@ h2 { font-weight:300; text-shadow:0 0 16px rgba(196,196,196,0.2); margin-bottom:
   text-shadow:none; box-shadow:0 0 10px rgba(255,255,255,0.4);
 }
 
+.playlist-thumb {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.playlist-thumb:hover {
+  transform: scale(1.05);
+}
+.playlist-thumb.active {
+  outline: 3px solid #f0f0f0;
+  box-shadow: 0 0 12px #fff;
+  transform: scale(1.05);
+}
+
+.about-text {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ccc;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
 footer {
     background-color: #1c1c1c;
     padding: 2rem 0;
     text-align: center;
+    flex-shrink: 0;   /* never shrink */
   }
 .social-icons a {
   color:#f0f0f0; font-size:1.5rem; margin:0 1rem;
@@ -265,8 +383,66 @@ footer {
     color: white;
   }
 
+  .section-music {
+    padding-top: 35%;
+  }
+
   .section-dark { padding-top: 35%; }
+
+  .iframe-eng{
+    width: 100%;
+  }
+
+  .section-eng-og{
+    margin-top: 15%;
+  }
+  
 }
+
+/* beats & engineering section styles */
+.beats-image-container {
+  position: relative;
+  display: inline-block;
+  margin: 1.5rem auto 2rem;
+}
+.beats-image-container img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(255,255,255,0.1);
+}
+.beats-image-container .beats-overlay {
+  position: absolute;
+  top: 80%; left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.75rem 1.25rem;
+  border-radius: 4px;
+}
+.beats-image-container .beats-overlay a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: 500;
+  text-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+
+.embed-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+  margin-top: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(255,255,255,0.1);
+}
+.embed-container iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+
 
 .navbar-nav .nav-link.active {
   color: #fff !important;
@@ -295,4 +471,127 @@ footer {
 
   a:hover{
         opacity: 0.75;
+  }
+
+  #offtop-loader {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+  }
+  #offtop-loader .spinner-grow {
+    width: clamp(4rem, 15vw, 25rem);
+    height: clamp(4rem, 15vw, 25rem);
+    background-color: rgba(255, 255, 255, 0.85);
+    opacity: 0.9;
+    animation:
+      spinner-grow 0.75s linear infinite,
+      spinnerGlow 1s ease-in-out infinite alternate;
+  }
+  @keyframes spinnerGlow {
+    0% {
+      filter:
+        drop-shadow(0 0 0.5rem rgba(255,255,255,0.5))
+        drop-shadow(0 0 1rem   rgba(255,255,255,0.3));
+    }
+    100% {
+      filter:
+        drop-shadow(0 0 1.5rem rgba(255,255,255,1))
+        drop-shadow(0 0 3rem   rgba(255,255,255,0.7));
+    }
+  }
+
+
+  .bg-events{
+    background-color: rgba(15, 15, 15, 0.85);
+  }
+
+  .card-title{
+      color: white;
+  }
+
+  .card-text{
+      color: white;
+  }
+
+  .no-events{
+    margin-top: 10%;
+  }
+
+   /* Loader & glow (unchanged) */
+   #videos { 
+    position: relative; 
+    margin-top: 1%;
+  }
+  #video-loader {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+  }
+  #video-loader .spinner-grow {
+    width: clamp(4rem, 15vw, 25rem);
+    height: clamp(4rem, 15vw, 25rem);
+    background-color: rgba(255, 255, 255, 0.85);
+    opacity: 0.9;
+    animation:
+      spinner-grow 0.75s linear infinite,
+      spinnerGlow 1s ease-in-out infinite alternate;
+  }
+  @keyframes spinnerGlow {
+    0% {
+      filter:
+        drop-shadow(0 0 0.5rem rgba(255,255,255,0.5))
+        drop-shadow(0 0 1rem   rgba(255,255,255,0.3));
+    }
+    100% {
+      filter:
+        drop-shadow(0 0 1.5rem rgba(255,255,255,1))
+        drop-shadow(0 0 3rem   rgba(255,255,255,0.7));
+    }
+  }
+
+  #about-content .form-control {
+    border: 1px solid rgba(196,196,196,0.4);
+    text-shadow: 0 0 6px rgba(196,196,196,0.3);
+    margin-top: 15%;
+  }
+  #about-content .btn-outline-light {
+    font-weight: 300;
+    text-shadow: 0 0 8px rgba(196,196,196,0.3);
+  }
+  #password-error {
+    color: salmon;
+    text-shadow: none;
+  }
+
+
+.epk-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;    /* fill the viewport, but only here */
+}
+
+.epk-page .section-dark {
+  flex: 1 0 auto;       /* grow this section to push footer down */
+}
+
+/* make sure footer never shrinks: */
+.epk-page footer {
+  flex-shrink: 0;
+}
+
+  .shows-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;    /* fill the viewport, but only here */
+  }
+  
+  .shows-page .section-dark {
+    flex: 1 0 auto;       /* grow this section to push footer down */
+  }
+  
+  /* make sure footer never shrinks: */
+  .shows-page footer {
+    flex-shrink: 0;
   }
