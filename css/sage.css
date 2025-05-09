@@ -338,6 +338,15 @@ footer {
   transform:scale(1.1);
   text-shadow:0 0 12px rgba(255,255,255,0.4);
 }
+@media (max-width: 810px){
+  .navbar-logo {
+    width: 20%;
+  }
+  .section-dark {
+    background-color: rgba(15,15,15,0.85);
+    padding-top: 13%;
+  }
+}
 @media (max-width: 768px) {
  /* make the collapse container into a full-screen panel */
   .navbar-collapse {
@@ -421,6 +430,7 @@ footer {
  }
   .navbar-nav .nav-item {
       width: 100%;
+      font-size: 20px;
  }
   .navbar-nav .nav-link {
       display: block;
@@ -453,6 +463,37 @@ footer {
       margin-top: 15%;
  }
 }
+@media (max-width: 428px) {
+    .navbar-nav .nav-item {
+      width: 100%;
+      margin: 7.5%;
+      font-size: 20px;
+  }
+}
+@media (max-width: 390px) {
+    .navbar-nav .nav-item {
+      width: 100%;
+      margin: 6.5%;
+      font-size: 20px;
+  }
+}
+
+@media (max-width: 360px) and (max-height:760px){
+    .navbar-nav .nav-item {
+      width: 100%;
+      margin: 5.5%;
+      font-size: 20px;
+}
+}
+
+@media (max-width: 375px) and (max-height:667px){
+    .navbar-nav .nav-item {
+      width: 100%;
+      margin: 2.5%;
+      font-size: 20px;
+  }
+}
+
 /* beats & engineering section styles */
 .beats-image-container {
   position: relative;
