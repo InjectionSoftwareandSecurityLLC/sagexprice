@@ -345,10 +345,6 @@ footer {
 }
 
 .epk-link{
-  display: flex;
-  justify-content: center; /* Horizontal centering */
-  align-items: center; /* Vertical centering */
-  height: 500px; /* Optional: Set a height for the container */
   font-size: 20px;
 }
 
@@ -385,10 +381,6 @@ footer {
  }
 
   .epk-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 600px;
     font-size: 30px;
   }
 
