@@ -7,6 +7,14 @@ const API_ENDPOINT = 'https://telxivq3o42mmq4zc4pkbwkvi40cycub.lambda-url.us-eas
       const errorDiv   = document.getElementById('password-error');
       const contentDiv = document.getElementById('about-content');
 
+
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();      // stop any native form‐submit
+          submitBtn.click();       // fire your click‐handler
+        }
+      });
+
       submitBtn.addEventListener('click', async () => {
         const pw = input.value.trim();
         if (!pw) return;
