@@ -339,6 +339,14 @@ footer {
   text-shadow:0 0 12px rgba(255,255,255,0.4);
 }
 
+.epk-link{
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+  height: 500px; /* Optional: Set a height for the container */
+  font-size: 20px;
+}
+
 @media (max-width: 810px){
   .navbar-logo {
     width: 20%;
@@ -370,6 +378,14 @@ footer {
       z-index: 1050;
      /* above most page content */
  }
+
+ .epk-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  font-size: 30px;
+}
  /* when “show” is toggled, display it */
   .navbar-collapse.show {
       display: block !important;
