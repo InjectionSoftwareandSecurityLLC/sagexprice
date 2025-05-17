@@ -784,21 +784,27 @@ a:hover{
 
 
 @media (max-width: 768px) {
-  /* full-screen mobile menu panel */
-#navbarNav.collapse.show {
+  /* full-height dropdown panel under mobile toolbars */
+  #navbarNav.collapse.show {
     position: fixed !important;
     top: 0 !important;
+    bottom: 0 !important;              /* anchor to true viewport bottom */
     left: 0 !important;
     width: 100vw !important;
-    height: 100vh !important;
+    height: auto !important;
+    min-height: 100svh !important;     /* fill dynamic viewport (Safari) */
+    min-height: 100dvh !important;     /* fallback for older iOS */
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     align-items: center !important;
     margin: 0 !important;
-    padding-top: 56px !important;   /* same gap as your navbar height */
+    padding-top: 56px !important;      /* gap under your navbar */
     padding-bottom: 0.5rem !important; /* tiny gap above socials */
-    background-color: rgba(0,0,0,0.9) !important; /* keep backdrop */
+    background-color: rgba(0,0,0,0.9) !important;
+    overflow-y: auto !important;            /* scroll the menu, not the page */
+    overscroll-behavior: contain !important; /* trap overscroll inside menu */
+    -webkit-overflow-scrolling: touch !important;
     z-index: 1050 !important;
   }
 
