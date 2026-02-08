@@ -6,7 +6,7 @@ async function loadLatestVideo() {
     const resp = await fetch(
       `https://www.googleapis.com/youtube/v3/playlistItems`
       + `?part=snippet`
-      + `&maxResults=50`
+      + `&maxResults=1`
       + `&playlistId=${playlistId}`
       + `&key=${apiKey}`
     );
