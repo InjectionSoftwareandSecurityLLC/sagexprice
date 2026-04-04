@@ -80,6 +80,39 @@
         const artist = encodeURIComponent('Sage X Price');
         const url = `https://rest.bandsintown.com/artists/${artist}/events?app_id=${appId}`;
         const container = document.getElementById('show-list');
+
+        // Static event cards (always shown)
+        const staticEvents = [
+          {
+            datetime: '2026-05-21T19:00:00',
+            venue: 'The Far Out Lounge and Stage',
+            city: 'Austin',
+            region: 'TX',
+            description: 'DAMAG3 w/ Amber Ryann and Sage X Price',
+            ticketUrl: 'https://www.tickettailor.com/events/thefaroutloungestage/2030280'
+          }
+        ];
+
+        staticEvents.forEach(evt => {
+          const date = new Date(evt.datetime);
+          const col = document.createElement('div');
+          col.className = 'd-flex flex-column';
+          col.innerHTML = `
+            <div class="card border bg-events border-light h-100">
+              <div class="card-body">
+                <h5 class="card-title">${date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</h5>
+                <p class="card-text mb-1">${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</p>
+                <p class="card-text mb-1"><strong>${evt.venue}</strong></p>
+                <p class="card-text">${evt.city}, ${evt.region}</p>
+              </div>
+              <div class="card-footer bg-events border-top border-light text-center">
+                <a href="${evt.ticketUrl}" target="_blank" class="btn btn-outline-light">Tickets</a>
+              </div>
+            </div>
+          `;
+          container.appendChild(col);
+        });
+
         try {
           const resp = await fetch(url);
           const events = await resp.json();
@@ -92,6 +125,7 @@
                 <div class="card border bg-events border-light h-100">
                   <div class="card-body">
                     <h5 class="card-title">${date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</h5>
+                    <p class="card-text mb-1">${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</p>
                     <p class="card-text mb-1"><strong>${evt.venue.name}</strong></p>
                     <p class="card-text">${evt.venue.city}, ${evt.venue.region || evt.venue.country}</p>
                   </div>
@@ -103,11 +137,11 @@
               container.appendChild(col);
             });
           } else {
-            container.innerHTML = '<div class="container no-events"><div class="about-text"><p class="fs-3 text-center text-light">No upcoming shows...<br/>for now</p></div></div>';
+            // No API shows — static cards already present, nothing more to add
           }
         } catch (e) {
           console.error('Error fetching events:', e);
-          container.innerHTML = '<div class="container no-events"><div class="about-text"><p class="fs-3 text-center text-light">No upcoming shows...<br/>for now</p></div></div>';
+          // Static cards are already in the DOM, so just log the error
         }
       });
     </script>
