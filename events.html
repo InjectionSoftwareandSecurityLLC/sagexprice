@@ -73,65 +73,245 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/sage.js"></script>
-    <!-- Bandsintown shows fetch script -->
     <script>
       document.addEventListener('DOMContentLoaded', async () => {
-        const appId = 'f5e22501f3cb6880d60fdb3c74154fab'; // replace with your Bandsintown app_id
-        const artist = encodeURIComponent('Sage X Price');
-        const url = `https://rest.bandsintown.com/artists/${artist}/events?app_id=${appId}`;
+
+        // ── API keys ──────────────────────────────────────────────────────────
+        const bitAppId   = 'f5e22501f3cb6880d60fdb3c74154fab';
+        const tmApiKey   = '0BzLLE2adL8vtHCWA86z4lXlB9SrXgQQ';
+        // ─────────────────────────────────────────────────────────────────────
+
         const container = document.getElementById('show-list');
 
-        // Static event cards (always shown)
-        const staticEvents = [
-          {
-            datetime: '2026-06-06T19:00:00',
-            venue: "Stubb's Indoor Cherri & Sage X Price (Wale & Smino Aftershow - Free with Wale & Smino Ticket!)",
-            city: 'Austin',
-            region: 'TX',
-            description: 'Cherri & Sage X Price (Wale & Smino Aftershow - Free with Wale & Smino Ticket!)',
-            ticketUrl: 'https://www.ticketmaster.com/wale-smino-everything-is-a-lot-austin-texas-06-06-2026/event/3A006449A56C8240'
-          }
-        ];
+        // Static event cards (always shown regardless of API results)
+        // Add entries here to manually pin a show regardless of API data:
+        // { datetime: '2026-01-01T19:00:00', venueName: '...', city: '...', region: 'TX', ticketUrl: '...' }
+        const staticEvents = [];
 
-        // Normalize static events into a common shape
-        const normalizedStatic = staticEvents.map(evt => ({
-          datetime: evt.datetime,
-          venueName: evt.venue,
-          city: evt.city,
-          region: evt.region,
-          ticketUrl: evt.ticketUrl
-        }));
+        // ── Region/country → IANA timezone lookup ────────────────────────────
+        // Covers US states, Canadian provinces, ISO-2 country codes, and full
+        // country name strings (Bandsintown returns full names, TM returns codes).
+        // For multi-timezone countries the state/province entry takes precedence;
+        // the country entry is a best-effort fallback for the most populated zone.
+        const TZ_LOOKUP = {
+          // ── US states ──────────────────────────────────────────────────────
+          AL:'America/Chicago',     AK:'America/Anchorage',    AZ:'America/Phoenix',
+          AR:'America/Chicago',     CA:'America/Los_Angeles',  CO:'America/Denver',
+          CT:'America/New_York',    DE:'America/New_York',     FL:'America/New_York',
+          GA:'America/New_York',    HI:'Pacific/Honolulu',     ID:'America/Denver',
+          IL:'America/Chicago',     IN:'America/Indiana/Indianapolis', IA:'America/Chicago',
+          KS:'America/Chicago',     KY:'America/New_York',     LA:'America/Chicago',
+          ME:'America/New_York',    MD:'America/New_York',     MA:'America/New_York',
+          MI:'America/Detroit',     MN:'America/Chicago',      MS:'America/Chicago',
+          MO:'America/Chicago',     MT:'America/Denver',       NE:'America/Chicago',
+          NV:'America/Los_Angeles', NH:'America/New_York',     NJ:'America/New_York',
+          NM:'America/Denver',      NY:'America/New_York',     NC:'America/New_York',
+          ND:'America/Chicago',     OH:'America/New_York',     OK:'America/Chicago',
+          OR:'America/Los_Angeles', PA:'America/New_York',     RI:'America/New_York',
+          SC:'America/New_York',    SD:'America/Chicago',      TN:'America/Chicago',
+          TX:'America/Chicago',     UT:'America/Denver',       VT:'America/New_York',
+          VA:'America/New_York',    WA:'America/Los_Angeles',  WV:'America/New_York',
+          WI:'America/Chicago',     WY:'America/Denver',       DC:'America/New_York',
+          PR:'America/Puerto_Rico', VI:'America/St_Thomas',    GU:'Pacific/Guam',
 
-        // Fetch dynamic events and merge, then sort all by date
-        let dynamicEvents = [];
-        try {
-          const resp = await fetch(url);
-          const events = await resp.json();
-          if (Array.isArray(events)) {
-            dynamicEvents = events.map(evt => ({
-              datetime: evt.datetime,
-              venueName: evt.venue.name,
-              city: evt.venue.city,
-              region: evt.venue.region || evt.venue.country,
-              ticketUrl: evt.url
-            }));
-          }
-        } catch (e) {
-          console.error('Error fetching events:', e);
+          // ── Canadian provinces/territories ────────────────────────────────
+          AB:'America/Edmonton',    BC:'America/Vancouver',    MB:'America/Winnipeg',
+          NB:'America/Moncton',     NL:'America/St_Johns',     NS:'America/Halifax',
+          NT:'America/Yellowknife', NU:'America/Iqaluit',      ON:'America/Toronto',
+          PE:'America/Halifax',     QC:'America/Toronto',      SK:'America/Regina',
+          YT:'America/Whitehorse',
+
+          // ── ISO-2 country codes (TM uses these for international venues) ──
+          US:'America/Chicago',     CA:'America/Toronto',      MX:'America/Mexico_City',
+          GB:'Europe/London',       IE:'Europe/Dublin',        FR:'Europe/Paris',
+          DE:'Europe/Berlin',       ES:'Europe/Madrid',        IT:'Europe/Rome',
+          PT:'Europe/Lisbon',       NL:'Europe/Amsterdam',     BE:'Europe/Brussels',
+          CH:'Europe/Zurich',       AT:'Europe/Vienna',        SE:'Europe/Stockholm',
+          NO:'Europe/Oslo',         DK:'Europe/Copenhagen',    FI:'Europe/Helsinki',
+          PL:'Europe/Warsaw',       CZ:'Europe/Prague',        HU:'Europe/Budapest',
+          RO:'Europe/Bucharest',    GR:'Europe/Athens',        TR:'Europe/Istanbul',
+          RU:'Europe/Moscow',       UA:'Europe/Kyiv',          BY:'Europe/Minsk',
+          RS:'Europe/Belgrade',     HR:'Europe/Zagreb',        SK:'Europe/Bratislava',
+          SI:'Europe/Ljubljana',    BA:'Europe/Sarajevo',      ME:'Europe/Podgorica',
+          MK:'Europe/Skopje',       AL:'Europe/Tirane',        BG:'Europe/Sofia',
+          EE:'Europe/Tallinn',      LV:'Europe/Riga',          LT:'Europe/Vilnius',
+          IS:'Atlantic/Reykjavik',  MT:'Europe/Malta',         LU:'Europe/Luxembourg',
+          MC:'Europe/Monaco',       LI:'Europe/Vaduz',         AD:'Europe/Andorra',
+          AU:'Australia/Sydney',    NZ:'Pacific/Auckland',
+          JP:'Asia/Tokyo',          KR:'Asia/Seoul',           CN:'Asia/Shanghai',
+          IN:'Asia/Kolkata',        SG:'Asia/Singapore',       HK:'Asia/Hong_Kong',
+          TW:'Asia/Taipei',         TH:'Asia/Bangkok',         ID:'Asia/Jakarta',
+          PH:'Asia/Manila',         MY:'Asia/Kuala_Lumpur',    VN:'Asia/Ho_Chi_Minh',
+          AE:'Asia/Dubai',          SA:'Asia/Riyadh',          QA:'Asia/Qatar',
+          KW:'Asia/Kuwait',         BH:'Asia/Bahrain',         OM:'Asia/Muscat',
+          IL:'Asia/Jerusalem',      JO:'Asia/Amman',           LB:'Asia/Beirut',
+          PK:'Asia/Karachi',        BD:'Asia/Dhaka',           LK:'Asia/Colombo',
+          NP:'Asia/Kathmandu',      MM:'Asia/Rangoon',         KH:'Asia/Phnom_Penh',
+          MN:'Asia/Ulaanbaatar',    KZ:'Asia/Almaty',          UZ:'Asia/Tashkent',
+          GE:'Asia/Tbilisi',        AM:'Asia/Yerevan',         AZ:'Asia/Baku',
+          BR:'America/Sao_Paulo',   AR:'America/Argentina/Buenos_Aires',
+          CL:'America/Santiago',    CO:'America/Bogota',       PE:'America/Lima',
+          VE:'America/Caracas',     EC:'America/Guayaquil',    BO:'America/La_Paz',
+          PY:'America/Asuncion',    UY:'America/Montevideo',   CR:'America/Costa_Rica',
+          PA:'America/Panama',      GT:'America/Guatemala',    HN:'America/Tegucigalpa',
+          SV:'America/El_Salvador', NI:'America/Managua',      CU:'America/Havana',
+          DO:'America/Santo_Domingo',JM:'America/Jamaica',     TT:'America/Port_of_Spain',
+          BB:'America/Barbados',    BS:'America/Nassau',       BM:'Atlantic/Bermuda',
+          ZA:'Africa/Johannesburg', NG:'Africa/Lagos',         KE:'Africa/Nairobi',
+          EG:'Africa/Cairo',        MA:'Africa/Casablanca',    GH:'Africa/Accra',
+          TZ:'Africa/Dar_es_Salaam',UG:'Africa/Kampala',       ET:'Africa/Addis_Ababa',
+          SN:'Africa/Dakar',        CI:'Africa/Abidjan',       CM:'Africa/Douala',
+          TN:'Africa/Tunis',        DZ:'Africa/Algiers',       LY:'Africa/Tripoli',
+          MU:'Indian/Mauritius',    MV:'Indian/Maldives',      SC:'Indian/Mahe',
+          FJ:'Pacific/Fiji',        PG:'Pacific/Port_Moresby', WS:'Pacific/Apia',
+          TO:'Pacific/Tongatapu',
+
+          // ── Full country name strings (Bandsintown returns these) ─────────
+          'United States':      'America/Chicago',
+          'Canada':             'America/Toronto',
+          'Mexico':             'America/Mexico_City',
+          'United Kingdom':     'Europe/London',
+          'Ireland':            'Europe/Dublin',
+          'France':             'Europe/Paris',
+          'Germany':            'Europe/Berlin',
+          'Spain':              'Europe/Madrid',
+          'Italy':              'Europe/Rome',
+          'Portugal':           'Europe/Lisbon',
+          'Netherlands':        'Europe/Amsterdam',
+          'Belgium':            'Europe/Brussels',
+          'Switzerland':        'Europe/Zurich',
+          'Austria':            'Europe/Vienna',
+          'Sweden':             'Europe/Stockholm',
+          'Norway':             'Europe/Oslo',
+          'Denmark':            'Europe/Copenhagen',
+          'Finland':            'Europe/Helsinki',
+          'Poland':             'Europe/Warsaw',
+          'Australia':          'Australia/Sydney',
+          'New Zealand':        'Pacific/Auckland',
+          'Japan':              'Asia/Tokyo',
+          'South Korea':        'Asia/Seoul',
+          'China':              'Asia/Shanghai',
+          'India':              'Asia/Kolkata',
+          'Singapore':          'Asia/Singapore',
+          'Brazil':             'America/Sao_Paulo',
+          'Argentina':          'America/Argentina/Buenos_Aires',
+          'Colombia':           'America/Bogota',
+          'Chile':              'America/Santiago',
+          'South Africa':       'Africa/Johannesburg',
+          'Nigeria':            'Africa/Lagos',
+          'Kenya':              'Africa/Nairobi',
+        };
+        function tzForRegion(region, fallback = null) {
+          return (region && TZ_LOOKUP[region]) || fallback || null;
         }
 
-        const allEvents = [...normalizedStatic, ...dynamicEvents]
+        // ── Bandsintown fetch ─────────────────────────────────────────────────
+        async function fetchBandsintown() {
+          const artist = encodeURIComponent('Sage X Price');
+          const url = `https://rest.bandsintown.com/artists/${artist}/events?app_id=${bitAppId}`;
+          const resp = await fetch(url);
+          const data = await resp.json();
+          if (!Array.isArray(data)) return [];
+          return data.map(evt => {
+            const region = evt.venue.region || evt.venue.country;
+            return {
+              datetime:  evt.datetime,
+              timezone:  tzForRegion(region),
+              venueName: evt.venue.name,
+              city:      evt.venue.city,
+              region,
+              ticketUrl: evt.url
+            };
+          });
+        }
+
+        // ── Ticketmaster fetch ────────────────────────────────────────────────
+        async function fetchTicketmaster() {
+          const tmBase = 'https://app.ticketmaster.com/discovery/v2';
+          const attractionId = 'K8vZ917LzGV'; // Sage X Price
+
+          const evtResp = await fetch(
+            `${tmBase}/events.json?attractionId=${attractionId}&sort=date,asc&apikey=${tmApiKey}`
+          );
+          const evtData = await evtResp.json();
+          const events = evtData?._embedded?.events;
+          if (!Array.isArray(events)) return [];
+
+          return events.map(evt => {
+            const venue = evt._embedded?.venues?.[0];
+            // Use the UTC dateTime for accurate sorting and timezone-aware display
+            const datetime = evt.dates?.start?.dateTime ?? (evt.dates?.start?.localDate + 'T00:00:00Z');
+            // Combine event title + venue name to match Bandsintown's format
+            const eventTitle = evt.name ?? '';
+            const venueName  = venue?.name ?? '';
+            const region = venue?.state?.stateCode ?? venue?.country?.countryCode ?? '';
+            return {
+              datetime,
+              // Derive timezone from state code; fall back to TM's own field for non-US events
+              timezone:  tzForRegion(region, evt.dates?.timezone),
+              venueName: eventTitle && venueName ? `${eventTitle} at ${venueName}` : venueName || eventTitle,
+              city:      venue?.city?.name ?? '',
+              region,
+              ticketUrl: evt.url
+            };
+          });
+        }
+
+        // ── Fetch both sources in parallel ────────────────────────────────────
+        const [bitResult, tmResult] = await Promise.allSettled([
+          fetchBandsintown(),
+          fetchTicketmaster()
+        ]);
+
+        const bitEvents = bitResult.status === 'fulfilled' ? bitResult.value : [];
+        const tmEvents  = tmResult.status  === 'fulfilled' ? tmResult.value  : [];
+
+        if (bitResult.status === 'rejected') console.error('Bandsintown error:', bitResult.reason);
+        if (tmResult.status  === 'rejected') console.error('Ticketmaster error:', tmResult.reason);
+
+        // ── Merge, deduplicate, sort ───────────────────────────────────────────
+        // Dedup key: date (YYYY-MM-DD) + venue name (lowercased, no whitespace)
+        const seen = new Set();
+        const allEvents = [...staticEvents, ...bitEvents, ...tmEvents]
+          .filter(evt => {
+            const day = evt.datetime.slice(0, 10);
+            const key = day + evt.venueName.toLowerCase().replace(/\s+/g, '');
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          })
           .sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
 
+        // ── Render ────────────────────────────────────────────────────────────
         allEvents.forEach(evt => {
           const date = new Date(evt.datetime);
+          const tz = evt.timezone || null;
+          const tzOpts = tz ? { timeZone: tz } : {};
+
+          const dateStr = date.toLocaleDateString('en-US', {
+            ...tzOpts, weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
+          });
+          // Get time + short TZ abbreviation (e.g. "10:30 PM CT") when timezone is known
+          const timeParts = tz
+            ? new Intl.DateTimeFormat('en-US', {
+                timeZone: tz,
+                hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
+              }).formatToParts(date)
+            : null;
+          const timeStr = tz
+            ? (timeParts.find(p => p.type === 'hour')?.value + ':'
+                + timeParts.find(p => p.type === 'minute')?.value + ' '
+                + timeParts.find(p => p.type === 'dayPeriod')?.value + ' '
+                + timeParts.find(p => p.type === 'timeZoneName')?.value)
+            : date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
           const col = document.createElement('div');
           col.className = 'd-flex flex-column';
           col.innerHTML = `
             <div class="card border bg-events border-light h-100">
               <div class="card-body">
-                <h5 class="card-title">${date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</h5>
-                <p class="card-text mb-1">${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</p>
+                <h5 class="card-title">${dateStr}</h5>
+                <p class="card-text mb-1">${timeStr}</p>
                 <p class="card-text mb-1"><strong>${evt.venueName}</strong></p>
                 <p class="card-text">${evt.city}, ${evt.region}</p>
               </div>
@@ -142,6 +322,7 @@
           `;
           container.appendChild(col);
         });
+
       });
     </script>
 </body>
