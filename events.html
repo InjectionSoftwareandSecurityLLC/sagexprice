@@ -84,16 +84,46 @@
         // Static event cards (always shown)
         const staticEvents = [
           {
-            datetime: '2026-05-21T19:00:00',
-            venue: 'The Far Out Lounge and Stage',
+            datetime: '2026-06-06T19:00:00',
+            venue: "Wale & Smino: Everything Is A Lot Tour w/ Sage X Price at Stubb's Waller Creek Amphitheater",
             city: 'Austin',
             region: 'TX',
-            description: 'DAMAG3 w/ Amber Ryann and Sage X Price',
-            ticketUrl: 'https://www.tickettailor.com/events/thefaroutloungestage/2030280'
+            description: 'Sage X Price at Wale & Smino: Everything Is A Lot Tour',
+            ticketUrl: 'https://www.ticketmaster.com/wale-smino-everything-is-a-lot-austin-texas-06-06-2026/event/3A006449A56C8240'
           }
         ];
 
-        staticEvents.forEach(evt => {
+        // Normalize static events into a common shape
+        const normalizedStatic = staticEvents.map(evt => ({
+          datetime: evt.datetime,
+          venueName: evt.venue,
+          city: evt.city,
+          region: evt.region,
+          ticketUrl: evt.ticketUrl
+        }));
+
+        // Fetch dynamic events and merge, then sort all by date
+        let dynamicEvents = [];
+        try {
+          const resp = await fetch(url);
+          const events = await resp.json();
+          if (Array.isArray(events)) {
+            dynamicEvents = events.map(evt => ({
+              datetime: evt.datetime,
+              venueName: evt.venue.name,
+              city: evt.venue.city,
+              region: evt.venue.region || evt.venue.country,
+              ticketUrl: evt.url
+            }));
+          }
+        } catch (e) {
+          console.error('Error fetching events:', e);
+        }
+
+        const allEvents = [...normalizedStatic, ...dynamicEvents]
+          .sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
+
+        allEvents.forEach(evt => {
           const date = new Date(evt.datetime);
           const col = document.createElement('div');
           col.className = 'd-flex flex-column';
@@ -102,7 +132,7 @@
               <div class="card-body">
                 <h5 class="card-title">${date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</h5>
                 <p class="card-text mb-1">${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</p>
-                <p class="card-text mb-1"><strong>${evt.venue}</strong></p>
+                <p class="card-text mb-1"><strong>${evt.venueName}</strong></p>
                 <p class="card-text">${evt.city}, ${evt.region}</p>
               </div>
               <div class="card-footer bg-events border-top border-light text-center">
@@ -112,37 +142,6 @@
           `;
           container.appendChild(col);
         });
-
-        try {
-          const resp = await fetch(url);
-          const events = await resp.json();
-          if (Array.isArray(events) && events.length > 0) {
-            events.forEach(evt => {
-              const date = new Date(evt.datetime);
-              const col = document.createElement('div');
-              col.className = 'd-flex flex-column';
-              col.innerHTML = `
-                <div class="card border bg-events border-light h-100">
-                  <div class="card-body">
-                    <h5 class="card-title">${date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</h5>
-                    <p class="card-text mb-1">${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</p>
-                    <p class="card-text mb-1"><strong>${evt.venue.name}</strong></p>
-                    <p class="card-text">${evt.venue.city}, ${evt.venue.region || evt.venue.country}</p>
-                  </div>
-                  <div class="card-footer bg-events border-top border-light text-center">
-                    <a href="${evt.url}" target="_blank" class="btn btn-outline-light">Tickets</a>
-                  </div>
-                </div>
-              `;
-              container.appendChild(col);
-            });
-          } else {
-            // No API shows — static cards already present, nothing more to add
-          }
-        } catch (e) {
-          console.error('Error fetching events:', e);
-          // Static cards are already in the DOM, so just log the error
-        }
       });
     </script>
 </body>
